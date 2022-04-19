@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Replace>
+	<Files>
+		<File>\{0}\ConnectionHelper.cs</File>
+	</Files>
+	<Tokens>
+		<Token name="inmemory">
+			<Item marker="//UseInMemoryStore = true;">UseInMemoryStore = true;</Item>
+		</Token>
+	</Tokens>
+</Replace>
+
+
+
+
+
