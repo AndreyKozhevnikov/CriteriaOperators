@@ -16,7 +16,7 @@ namespace dxTestSolutionXPO {
             ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
             var uow = new UnitOfWork();
             ConnectionHelper.AddContact(uow, "FirstName0", 10);
-            ConnectionHelper.AddContact(uow, "FirstName0", 20);
+            ConnectionHelper.AddContact(uow, "FirstName1", 20);
             uow.CommitChanges();
         }
         void PopulatePlainCollectionCrit() {
@@ -51,25 +51,25 @@ namespace dxTestSolutionXPO {
         [Test]
         public void AggregateOperandAvg_PlainCollection_1() {
             PopulatePlainCollection();
-            var crit = CriteriaOperator.Parse("Avg([Age])");
+            CriteriaOperator criterion = CriteriaOperator.Parse("Avg([Age])");
             var uow = new UnitOfWork();
-            var res = uow.Evaluate<Contact>(crit, null);
+            var res = uow.Evaluate<Contact>(criterion, null);
             Assert.AreEqual(15, res);
         }
         [Test]
         public void AggregateOperandAvg_PlainCollection_2() {
             PopulatePlainCollection();
-            var crit = new AggregateOperand(null, "Age", Aggregate.Avg);
+            CriteriaOperator criterion = new AggregateOperand(null, "Age", Aggregate.Avg);
             var uow = new UnitOfWork();
-            var res = uow.Evaluate<Contact>(crit, null);
+            var res = uow.Evaluate<Contact>(criterion, null);
             Assert.AreEqual(15, res);
         }
         [Test]
         public void AggregateOperandAvg_PlainCollection_3() {
             PopulatePlainCollection();
-            var crit = CriteriaOperator.FromLambda<Contact, double>(x => FromLambdaFunctions.TopLevelAggregate<Contact>().Average(c => c.Age));
+            CriteriaOperator criterion = CriteriaOperator.FromLambda<Contact, double>(x => FromLambdaFunctions.TopLevelAggregate<Contact>().Average(c => c.Age));
             var uow = new UnitOfWork();
-            var res = uow.Evaluate<Contact>(crit, null);
+            var res = uow.Evaluate<Contact>(criterion, null);
             Assert.AreEqual(15, res);
         }
 
