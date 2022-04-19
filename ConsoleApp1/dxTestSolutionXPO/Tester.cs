@@ -31,14 +31,21 @@ namespace dxTestSolutionXPO {
         void PopulateSelectFromCollection() {
             ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
             var uow = new UnitOfWork();
-           var c0= ConnectionHelper.AddContact(uow, "FirstName0");
+            var c0 = ConnectionHelper.AddContact(uow, "FirstName0");
             var t00 = ConnectionHelper.AddTask(uow, c0, "Task0-0", 10);
             var t01 = ConnectionHelper.AddTask(uow, c0, "Task0-1", 20);
             var c1 = ConnectionHelper.AddContact(uow, "FirstName1");
             var t10 = ConnectionHelper.AddTask(uow, c1, "Task1-0", 100);
-            var t11 = ConnectionHelper.AddTask(uow, c1, "Task1-1", 200);
+            var t11 = ConnectionHelper.AddTask(uow, c1, "Task1-1", 200);   
             
-          
+            var c2 = ConnectionHelper.AddContact(uow, "FirstName2");
+            var t20 = ConnectionHelper.AddTask(uow, c2, "Task2-0", 30);
+            var t21 = ConnectionHelper.AddTask(uow, c2, "Task2-1", 40);
+            var c3 = ConnectionHelper.AddContact(uow, "FirstName3");
+            var t30 = ConnectionHelper.AddTask(uow, c3, "Task3-0", 200);
+            var t31 = ConnectionHelper.AddTask(uow, c3, "Task3-1", 300);
+
+
             uow.CommitChanges();
         }
         [Test]
@@ -100,9 +107,10 @@ namespace dxTestSolutionXPO {
             PopulateSelectFromCollection();
             var uow = new UnitOfWork();
             var crit = CriteriaOperator.Parse("[Tasks].Avg([Price])>100");
-            var res = new XPCollection<Contact>(uow,crit).ToList();
-            Assert.AreEqual(1, res.Count);
+            var res = new XPCollection<Contact>(uow, crit).ToList();
+            Assert.AreEqual(2, res.Count);
             Assert.AreEqual("FirstName1", res[0].FirstName);
+            Assert.AreEqual("FirstName3", res[1].FirstName);
         }
 
         [Test]
@@ -112,19 +120,20 @@ namespace dxTestSolutionXPO {
             var crit = new AggregateOperand("Tasks", "Price", Aggregate.Avg);
             var crit2 = new BinaryOperator(crit, 100, BinaryOperatorType.Greater);
             var res = new XPCollection<Contact>(uow, crit2).ToList();
-            Assert.AreEqual(1, res.Count);
+            Assert.AreEqual(2, res.Count);
             Assert.AreEqual("FirstName1", res[0].FirstName);
+            Assert.AreEqual("FirstName3", res[1].FirstName);
         }
 
         [Test]
         public void AggregateOperandAvg_SelectFromCollection_3() {
             PopulateSelectFromCollection();
             var uow = new UnitOfWork();
-         //   var crit = CriteriaOperator.Parse("[Tasks].Avg([Price])>100");
-            var crit = CriteriaOperator.FromLambda<Contact>(x =>x.Tasks.Average(t=>t.Price)>100);
-            var res = new XPCollection<Contact>(uow, crit).ToList();
-            Assert.AreEqual(1, res.Count);
+            var crit = CriteriaOperator.FromLambda<Contact>(x => x.Tasks.Average(t => t.Price) > 100);
+            var res = new XPCollection<Contact>(uow, crit).OrderBy(x=>x.FirstName).ToList();
+            Assert.AreEqual(2, res.Count);
             Assert.AreEqual("FirstName1", res[0].FirstName);
+            Assert.AreEqual("FirstName3", res[1].FirstName);
         }
 
     }
