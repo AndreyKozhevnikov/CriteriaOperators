@@ -28,33 +28,14 @@ namespace dxTestSolutionXPO {
             ConnectionHelper.AddContact(uow, "FirstName0", 40, true);
             uow.CommitChanges();
         }
-        void PopulateSelectFromCollection() {
-            ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
-            var uow = new UnitOfWork();
-            var c0 = ConnectionHelper.AddContact(uow, "FirstName0");
-            var t00 = ConnectionHelper.AddTask(uow, c0, "Task0-0", 10);
-            var t01 = ConnectionHelper.AddTask(uow, c0, "Task0-1", 20);
-            var c1 = ConnectionHelper.AddContact(uow, "FirstName1");
-            var t10 = ConnectionHelper.AddTask(uow, c1, "Task1-0", 100);
-            var t11 = ConnectionHelper.AddTask(uow, c1, "Task1-1", 200);   
-            
-            var c2 = ConnectionHelper.AddContact(uow, "FirstName2");
-            var t20 = ConnectionHelper.AddTask(uow, c2, "Task2-0", 30);
-            var t21 = ConnectionHelper.AddTask(uow, c2, "Task2-1", 40);
-            var c3 = ConnectionHelper.AddContact(uow, "FirstName3");
-            var t30 = ConnectionHelper.AddTask(uow, c3, "Task3-0", 200);
-            var t31 = ConnectionHelper.AddTask(uow, c3, "Task3-1", 300);
 
-
-            uow.CommitChanges();
-        }
         [Test]
         public void AggregateOperandAvg_PlainCollection_1() {
             PopulatePlainCollection();
             CriteriaOperator criterion = CriteriaOperator.Parse("Avg([Age])");
             var uow = new UnitOfWork();
-            var res = uow.Evaluate<Contact>(criterion, null);
-            Assert.AreEqual(15, res);
+            var result = uow.Evaluate<Contact>(criterion, null);
+            Assert.AreEqual(15, result);
         }
         [Test]
         public void AggregateOperandAvg_PlainCollection_2() {
@@ -100,7 +81,26 @@ namespace dxTestSolutionXPO {
             var res = uow.Evaluate<Contact>(crit, crit2);
             Assert.AreEqual(35, res);
         }
+        void PopulateSelectFromCollection() {
+            ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
+            var uow = new UnitOfWork();
+            var c0 = ConnectionHelper.AddContact(uow, "FirstName0");
+            var t00 = ConnectionHelper.AddTask(uow, c0, "Task0-0", 10);
+            var t01 = ConnectionHelper.AddTask(uow, c0, "Task0-1", 20);
+            var c1 = ConnectionHelper.AddContact(uow, "FirstName1");
+            var t10 = ConnectionHelper.AddTask(uow, c1, "Task1-0", 100);
+            var t11 = ConnectionHelper.AddTask(uow, c1, "Task1-1", 200);
 
+            var c2 = ConnectionHelper.AddContact(uow, "FirstName2");
+            var t20 = ConnectionHelper.AddTask(uow, c2, "Task2-0", 30);
+            var t21 = ConnectionHelper.AddTask(uow, c2, "Task2-1", 40);
+            var c3 = ConnectionHelper.AddContact(uow, "FirstName3");
+            var t30 = ConnectionHelper.AddTask(uow, c3, "Task3-0", 300);
+            var t31 = ConnectionHelper.AddTask(uow, c3, "Task3-1", 400);
+
+
+            uow.CommitChanges();
+        }
 
         [Test]
         public void AggregateOperandAvg_SelectFromCollection_1() {
