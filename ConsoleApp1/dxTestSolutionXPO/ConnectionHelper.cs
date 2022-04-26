@@ -52,14 +52,14 @@ namespace dxTestSolutionXPO {
         public static IDataLayer GetDataLayer(DevExpress.Xpo.DB.AutoCreateOption autoCreateOption) {
             return XpoDefault.GetDataLayer(ConnectionString, autoCreateOption);
         }
-        public static Order AddContact(UnitOfWork _uow, string _firstName) {
+        public static Order AddOrder(UnitOfWork _uow, string _firstName) {
             var c = new Order(_uow);
             c.OrderName = _firstName;
             return c;
         }
 
         internal static Order AddContact(UnitOfWork _uow, string _firstName, int _age) {
-            var c = AddContact(_uow, _firstName);
+            var c = AddOrder(_uow, _firstName);
             c.Price = _age;
             return c;
             
@@ -69,11 +69,20 @@ namespace dxTestSolutionXPO {
             c.IsActive = _isActive;
             return c;
         }
-        public static object AddTask(UnitOfWork _uow, Order _parent, string _subject, int _price) {
+        public static OrderItem AddOrderItem(UnitOfWork _uow, Order _parent, string _subject) {
             var t = new OrderItem(_uow);
             t.OrderItemName = _subject;
-            t.ItemPrice = _price;
             t.Order = _parent;
+            return t;
+        }
+        public static OrderItem AddOrderItem(UnitOfWork _uow, Order _parent, string _subject, int _price) {
+            var t = AddOrderItem(_uow,_parent,_subject);
+            t.ItemPrice = _price;
+            return t;
+        }
+        public static OrderItem AddOrderItem(UnitOfWork _uow, Order _parent, string _subject, int _price,bool _isAvailable) {
+            var t = AddOrderItem(_uow,_parent,_subject,_price);
+            t.IsAvailable = _isAvailable;
             return t;
         }
     }

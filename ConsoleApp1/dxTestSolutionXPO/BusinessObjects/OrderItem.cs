@@ -13,6 +13,7 @@ namespace dxTestSolutionXPO.Module.BusinessObjects {
         public override void AfterConstruction() {
             base.AfterConstruction();
         }
+        bool isAvailable;
         string _orderItemName;
         public string OrderItemName {
             get {
@@ -41,7 +42,11 @@ namespace dxTestSolutionXPO.Module.BusinessObjects {
                 SetPropertyValue(nameof(ItemPrice), ref _itemPrice, value);
             }
         }
-
+        
+        public bool IsAvailable {
+            get => isAvailable;
+            set => SetPropertyValue(nameof(IsAvailable), ref isAvailable, value);
+        }
 
     }
 }

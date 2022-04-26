@@ -1,33 +1,16 @@
 ﻿using DevExpress.Data.Filtering;
 using DevExpress.Xpo;
 using dxTestSolutionXPO.Module.BusinessObjects;
+using dxTestSolutionXPO.Tests;
 using NUnit.Framework;
 using System;
 using System.Linq;
 
 namespace dxTestSolutionXPO {
     [TestFixture]
-    public class CriteriaOperatorAvg {
-        public CriteriaOperatorAvg() {
-            // ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
-            //Program.MakeInitialData();
-        }
-        void PopulatePlainCollection() {
-            ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
-            var uow = new UnitOfWork();
-            ConnectionHelper.AddContact(uow, "FirstName0", 10);
-            ConnectionHelper.AddContact(uow, "FirstName1", 20);
-            uow.CommitChanges();
-        }
-        void PopulatePlainCollectionCrit() {
-            ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
-            var uow = new UnitOfWork();
-            ConnectionHelper.AddContact(uow, "FirstName0", 10, false);
-            ConnectionHelper.AddContact(uow, "FirstName0", 20, false);
-            ConnectionHelper.AddContact(uow, "FirstName0", 30, true);
-            ConnectionHelper.AddContact(uow, "FirstName0", 40, true);
-            uow.CommitChanges();
-        }
+    public class CriteriaOperatorAvg: BaseTest {
+     
+    
 
         [Test]
         public void AggregateOperandAvg_PlainCollection_1() {
@@ -55,53 +38,34 @@ namespace dxTestSolutionXPO {
         }
         [Test]
         public void AggregateOperandAvg_PlainCollection_Crit_1() {
-            PopulatePlainCollectionCrit();
+            PopulateСollectionWithActive();
             var crit = CriteriaOperator.Parse("Avg([Price])");
             var crit2 = CriteriaOperator.Parse("[IsActive]=true");
             var uow = new UnitOfWork();
             var res = uow.Evaluate<Order>(crit, crit2);
-            Assert.AreEqual(35, res);
+            Assert.AreEqual(40, res);
         }
         [Test]
         public void AggregateOperandAvg_PlainCollection_Crit_2() {
-            PopulatePlainCollectionCrit();
+            PopulateСollectionWithActive();
             var crit = new AggregateOperand(null, nameof(Order.Price), Aggregate.Avg);
             var crit2 = new BinaryOperator(nameof(Order.IsActive), true);
             var uow = new UnitOfWork();
             var res = uow.Evaluate<Order>(crit, crit2);
-            Assert.AreEqual(35, res);
+            Assert.AreEqual(40, res);
         }
    
         [Test]
         public void AggregateOperandAvg_PlainCollection_Crit_3() {
-            PopulatePlainCollectionCrit();
+            PopulateСollectionWithActive();
             var crit = CriteriaOperator.FromLambda<Order, double>(x => FromLambdaFunctions.TopLevelAggregate<Order>().Average(c => c.Price));
             var crit2 = CriteriaOperator.FromLambda<Order>(x => x.IsActive);
             var uow = new UnitOfWork();
             var res = uow.Evaluate<Order>(crit, crit2);
-            Assert.AreEqual(35, res);
+            Assert.AreEqual(40, res);
         }
    
-        void PopulateSelectFromCollection() {
-            ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
-            var uow = new UnitOfWork();
-            var c0 = ConnectionHelper.AddContact(uow, "FirstName0");
-            var t00 = ConnectionHelper.AddTask(uow, c0, "Task0-0", 10);
-            var t01 = ConnectionHelper.AddTask(uow, c0, "Task0-1", 20);
-            var c1 = ConnectionHelper.AddContact(uow, "FirstName1");
-            var t10 = ConnectionHelper.AddTask(uow, c1, "Task1-0", 100);
-            var t11 = ConnectionHelper.AddTask(uow, c1, "Task1-1", 200);
-
-            var c2 = ConnectionHelper.AddContact(uow, "FirstName2");
-            var t20 = ConnectionHelper.AddTask(uow, c2, "Task2-0", 30);
-            var t21 = ConnectionHelper.AddTask(uow, c2, "Task2-1", 40);
-            var c3 = ConnectionHelper.AddContact(uow, "FirstName3");
-            var t30 = ConnectionHelper.AddTask(uow, c3, "Task3-0", 300);
-            var t31 = ConnectionHelper.AddTask(uow, c3, "Task3-1", 400);
-
-
-            uow.CommitChanges();
-        }
+      
 
         [Test]
         public void AggregateOperandAvg_SelectFromCollection_1() {
