@@ -22,29 +22,29 @@ namespace dxTestSolutionXPO {
             //tester.AggregateOperandAvg_PlainCollection_Crit_2();
             //tester.AggregateOperandAvg_PlainCollection_Crit_3();
             var session = new Session();
-            var lst = new XPCollection<MyTask>(session);
+            var lst = new XPCollection<OrderItem>(session);
             var cnt = lst.Count;
-            var c = new XPCollection<Contact>(session)[0].Tasks.ToList();
+            var c = new XPCollection<Order>(session)[0].OrderItems.ToList();
         }
 
 
     public    static void MakeInitialData() {
             var session = new Session();
-            var c = new XPCollection<Contact>(session).Count;
+            var c = new XPCollection<Order>(session).Count;
             if (c > 0) {
                 return;
             }
             for (int i = 0; i < 10; i++) {
                 string contactName = "FirstName" + i;
-                var contact = CreateObject<Contact>("FirstName", contactName, session);
+                var contact = CreateObject<Order>("FirstName", contactName, session);
                 contact.LastName = "LastName" + i;
-                contact.Age = i * 10;
+                contact.Price = i * 10;
                 contact.IsActive = i % 2 == 0;
                 for (int j = 0; j < 5; j++) {
                     string taskName = "Subject" + i + " - " + j;
-                    var task = CreateObject<MyTask>("Subject", taskName, session);
-                    task.AssignedTo = contact;
-                    task.Price = i * 100;
+                    var task = CreateObject<OrderItem>("Subject", taskName, session);
+                    task.Order = contact;
+                    task.ItemPrice = i * 100;
                     task.Save();
                 }
                 contact.Save();

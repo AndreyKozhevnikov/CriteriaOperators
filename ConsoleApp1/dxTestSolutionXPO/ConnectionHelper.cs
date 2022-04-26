@@ -18,7 +18,7 @@ using DevExpress.Xpo.DB;
 namespace dxTestSolutionXPO {
     public static class ConnectionHelper {
         static Type[] persistentTypes = new Type[] {
-            typeof(Contact),typeof(MyTask)
+            typeof(Order),typeof(OrderItem)
         };
         public static Type[] GetPersistentTypes() {
             Type[] copy = new Type[persistentTypes.Length];
@@ -52,28 +52,28 @@ namespace dxTestSolutionXPO {
         public static IDataLayer GetDataLayer(DevExpress.Xpo.DB.AutoCreateOption autoCreateOption) {
             return XpoDefault.GetDataLayer(ConnectionString, autoCreateOption);
         }
-        public static Contact AddContact(UnitOfWork _uow, string _firstName) {
-            var c = new Contact(_uow);
-            c.FirstName = _firstName;
+        public static Order AddContact(UnitOfWork _uow, string _firstName) {
+            var c = new Order(_uow);
+            c.OrderName = _firstName;
             return c;
         }
 
-        internal static Contact AddContact(UnitOfWork _uow, string _firstName, int _age) {
+        internal static Order AddContact(UnitOfWork _uow, string _firstName, int _age) {
             var c = AddContact(_uow, _firstName);
-            c.Age = _age;
+            c.Price = _age;
             return c;
             
         }
-        public static Contact AddContact(UnitOfWork _uow, string _firstName, int _age, bool _isActive) {
+        public static Order AddContact(UnitOfWork _uow, string _firstName, int _age, bool _isActive) {
             var c = AddContact(_uow, _firstName, _age);
             c.IsActive = _isActive;
             return c;
         }
-        public static object AddTask(UnitOfWork _uow, Contact _parent, string _subject, int _price) {
-            var t = new MyTask(_uow);
-            t.Subject = _subject;
-            t.Price = _price;
-            t.AssignedTo = _parent;
+        public static object AddTask(UnitOfWork _uow, Order _parent, string _subject, int _price) {
+            var t = new OrderItem(_uow);
+            t.OrderItemName = _subject;
+            t.ItemPrice = _price;
+            t.Order = _parent;
             return t;
         }
     }

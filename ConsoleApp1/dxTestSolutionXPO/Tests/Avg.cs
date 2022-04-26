@@ -32,55 +32,56 @@ namespace dxTestSolutionXPO {
         [Test]
         public void AggregateOperandAvg_PlainCollection_1() {
             PopulatePlainCollection();
-            CriteriaOperator criterion = CriteriaOperator.Parse("Avg([Age])");
+            CriteriaOperator criterion = CriteriaOperator.Parse("Avg([Price])");
             var uow = new UnitOfWork();
-            var result = uow.Evaluate<Contact>(criterion, null);
+            var result = uow.Evaluate<Order>(criterion, null);
             Assert.AreEqual(15, result);
         }
         [Test]
         public void AggregateOperandAvg_PlainCollection_2() {
             PopulatePlainCollection();
-            CriteriaOperator criterion = new AggregateOperand(null, "Age", Aggregate.Avg);
+            CriteriaOperator criterion = new AggregateOperand(null, nameof(Order.Price), Aggregate.Avg);
             var uow = new UnitOfWork();
-            var res = uow.Evaluate<Contact>(criterion, null);
+            var res = uow.Evaluate<Order>(criterion, null);
             Assert.AreEqual(15, res);
         }
         [Test]
         public void AggregateOperandAvg_PlainCollection_3() {
             PopulatePlainCollection();
-            CriteriaOperator criterion = CriteriaOperator.FromLambda<Contact, double>(x => FromLambdaFunctions.TopLevelAggregate<Contact>().Average(c => c.Age));
+            CriteriaOperator criterion = CriteriaOperator.FromLambda<Order, double>(x => FromLambdaFunctions.TopLevelAggregate<Order>().Average(c => c.Price));
             var uow = new UnitOfWork();
-            var res = uow.Evaluate<Contact>(criterion, null);
+            var res = uow.Evaluate<Order>(criterion, null);
             Assert.AreEqual(15, res);
         }
-
         [Test]
         public void AggregateOperandAvg_PlainCollection_Crit_1() {
             PopulatePlainCollectionCrit();
-            var crit = CriteriaOperator.Parse("Avg([Age])");
+            var crit = CriteriaOperator.Parse("Avg([Price])");
             var crit2 = CriteriaOperator.Parse("[IsActive]=true");
             var uow = new UnitOfWork();
-            var res = uow.Evaluate<Contact>(crit, crit2);
+            var res = uow.Evaluate<Order>(crit, crit2);
             Assert.AreEqual(35, res);
         }
         [Test]
         public void AggregateOperandAvg_PlainCollection_Crit_2() {
             PopulatePlainCollectionCrit();
-            var crit = CriteriaOperator.FromLambda<Contact, double>(x => FromLambdaFunctions.TopLevelAggregate<Contact>().Average(c => c.Age));
-            var crit2 = CriteriaOperator.FromLambda<Contact>(x => x.IsActive);
+            var crit = new AggregateOperand(null, nameof(Order.Price), Aggregate.Avg);
+            var crit2 = new BinaryOperator(nameof(Order.IsActive), true);
             var uow = new UnitOfWork();
-            var res = uow.Evaluate<Contact>(crit, crit2);
+            var res = uow.Evaluate<Order>(crit, crit2);
             Assert.AreEqual(35, res);
         }
+   
         [Test]
         public void AggregateOperandAvg_PlainCollection_Crit_3() {
             PopulatePlainCollectionCrit();
-            var crit = CriteriaOperator.Parse("Avg([Age])");
-            var crit2 = CriteriaOperator.Parse("[IsActive]=true");
+            var crit = CriteriaOperator.FromLambda<Order, double>(x => FromLambdaFunctions.TopLevelAggregate<Order>().Average(c => c.Price));
+            var crit2 = CriteriaOperator.FromLambda<Order>(x => x.IsActive);
             var uow = new UnitOfWork();
-            var res = uow.Evaluate<Contact>(crit, crit2);
+            var res = uow.Evaluate<Order>(crit, crit2);
             Assert.AreEqual(35, res);
         }
+   
         void PopulateSelectFromCollection() {
             ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
             var uow = new UnitOfWork();
@@ -106,34 +107,34 @@ namespace dxTestSolutionXPO {
         public void AggregateOperandAvg_SelectFromCollection_1() {
             PopulateSelectFromCollection();
             var uow = new UnitOfWork();
-            var crit = CriteriaOperator.Parse("[Tasks].Avg([Price])>100");
-            var res = new XPCollection<Contact>(uow, crit).ToList();
+            var crit = CriteriaOperator.Parse("[OrderItems].Avg([ItemPrice])>100");
+            var res = new XPCollection<Order>(uow, crit).OrderBy(x=>x.OrderName).ToList();
             Assert.AreEqual(2, res.Count);
-            Assert.AreEqual("FirstName1", res[0].FirstName);
-            Assert.AreEqual("FirstName3", res[1].FirstName);
+            Assert.AreEqual("FirstName1", res[0].OrderName);
+            Assert.AreEqual("FirstName3", res[1].OrderName);
         }
 
         [Test]
         public void AggregateOperandAvg_SelectFromCollection_2() {
             PopulateSelectFromCollection();
             var uow = new UnitOfWork();
-            var crit = new AggregateOperand("Tasks", "Price", Aggregate.Avg);
+            var crit = new AggregateOperand(nameof(Order.OrderItems), nameof(OrderItem.ItemPrice) , Aggregate.Avg);
             var crit2 = new BinaryOperator(crit, 100, BinaryOperatorType.Greater);
-            var res = new XPCollection<Contact>(uow, crit2).ToList();
+            var res = new XPCollection<Order>(uow, crit2).OrderBy(x => x.OrderName).ToList();
             Assert.AreEqual(2, res.Count);
-            Assert.AreEqual("FirstName1", res[0].FirstName);
-            Assert.AreEqual("FirstName3", res[1].FirstName);
+            Assert.AreEqual("FirstName1", res[0].OrderName);
+            Assert.AreEqual("FirstName3", res[1].OrderName);
         }
 
         [Test]
         public void AggregateOperandAvg_SelectFromCollection_3() {
             PopulateSelectFromCollection();
             var uow = new UnitOfWork();
-            var crit = CriteriaOperator.FromLambda<Contact>(x => x.Tasks.Average(t => t.Price) > 100);
-            var res = new XPCollection<Contact>(uow, crit).OrderBy(x=>x.FirstName).ToList();
+            var crit = CriteriaOperator.FromLambda<Order>(x => x.OrderItems.Average(t => t.ItemPrice) > 100);
+            var res = new XPCollection<Order>(uow, crit).OrderBy(x=>x.OrderName).ToList();
             Assert.AreEqual(2, res.Count);
-            Assert.AreEqual("FirstName1", res[0].FirstName);
-            Assert.AreEqual("FirstName3", res[1].FirstName);
+            Assert.AreEqual("FirstName1", res[0].OrderName);
+            Assert.AreEqual("FirstName3", res[1].OrderName);
         }
 
     }

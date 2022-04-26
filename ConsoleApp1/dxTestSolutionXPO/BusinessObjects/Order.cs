@@ -6,20 +6,20 @@ using System.Diagnostics;
 
 namespace dxTestSolutionXPO.Module.BusinessObjects {
    [DebuggerDisplay("FirstName: {FirstName}")]
-    public class Contact : XPObject { 
-        public Contact(Session session)
+    public class Order : XPObject { 
+        public Order(Session session)
             : base(session) {
         }
         public override void AfterConstruction() {
             base.AfterConstruction();
         }
-       string firstName;
-        public string FirstName {
+       string _orderName;
+        public string OrderName {
             get {
-                return firstName;
+                return _orderName;
             }
             set {
-                SetPropertyValue(nameof(FirstName), ref firstName, value);
+                SetPropertyValue(nameof(OrderName), ref _orderName, value);
             }
         }
         string lastName;
@@ -31,13 +31,13 @@ namespace dxTestSolutionXPO.Module.BusinessObjects {
                 SetPropertyValue(nameof(LastName), ref lastName, value);
             }
         }
-		int age;
-        public int Age {
+		int _price;
+        public int Price {
             get {
-                return age;
+                return _price;
             }
             set {
-                SetPropertyValue(nameof(Age), ref age, value);
+                SetPropertyValue(nameof(Price), ref _price, value);
             }
         }
 
@@ -61,10 +61,10 @@ namespace dxTestSolutionXPO.Module.BusinessObjects {
         // }	
         //[EditorAlias(EditorAliases.RichTextPropertyEditor)]
         //public byte[] Text { get; set; }		
-        [Association("Contact-Tasks")]
-        public XPCollection<MyTask> Tasks {
+        [Association]
+        public XPCollection<OrderItem> OrderItems {
             get {
-                return GetCollection<MyTask>(nameof(Tasks));
+                return GetCollection<OrderItem>(nameof(OrderItems));
             }
         }
 
