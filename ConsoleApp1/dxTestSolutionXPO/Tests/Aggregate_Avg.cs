@@ -102,24 +102,5 @@ namespace dxTestSolutionXPO {
         }
 
     }
-    /*
-    Name  | Price
-    Item1 | 10
-    Item2 | 20
-     */
-
-    /*
- {|
-|-
-! Name !! Price  !! IsActive
-|-
-| Item0 || 10 || False
-|- 
-| Item1 || 20 || False
-|-
-| Item2 || 30 || True
-|-
-| Item3 || 40 || True
-|}
-      */
+   
 }
