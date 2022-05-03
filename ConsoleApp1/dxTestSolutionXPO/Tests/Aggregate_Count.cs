@@ -12,7 +12,7 @@ namespace dxTestSolutionXPO.Tests {
     [TestFixture]
     public class Aggregate_Count : BaseTest {
         [Test]
-        public void PlainCount_1() {
+        public void Task1_PlainCount_1() {
             PopulatePlainCollection();
             var uow = new UnitOfWork();
             CriteriaOperator criterion = CriteriaOperator.Parse("Count()");
@@ -21,7 +21,7 @@ namespace dxTestSolutionXPO.Tests {
         }
 
         [Test]
-        public void PlainCount_2() {
+        public void Task1_PlainCount_2() {
             PopulatePlainCollection();
             var uow = new UnitOfWork();
             CriteriaOperator criterion = new AggregateOperand(null, Aggregate.Count);
@@ -30,7 +30,7 @@ namespace dxTestSolutionXPO.Tests {
         }
 
         [Test]
-        public void PlainCount_3() {
+        public void Task1_PlainCount_3() {
             PopulatePlainCollection();
 
             var uow = new UnitOfWork();
@@ -41,35 +41,35 @@ namespace dxTestSolutionXPO.Tests {
         }
 
         [Test]
-        public void CountСollection_1() {
+        public void Task2_CountСollection_1() {
             PopulateComplexCollection();
             var uow = new UnitOfWork();
-            CriteriaOperator criterion = CriteriaOperator.Parse("[OrderItems].Count()>2");
+            CriteriaOperator criterion = CriteriaOperator.Parse("[OrderItems].Count()>1");
             var result = new XPCollection<Order>(uow, criterion).ToList();
-            Assert.AreEqual(3, result.Count);
+            Assert.AreEqual(2, result.Count);
         }
 
         [Test]
-        public void CountСollection_2() {
+        public void Task2_CountСollection_2() {
             PopulateComplexCollection();
             var uow = new UnitOfWork();
             CriteriaOperator criterion = new AggregateOperand(nameof(Order.OrderItems), Aggregate.Count);
-            var crit2 = new BinaryOperator(criterion, 2, BinaryOperatorType.Greater);
+            var crit2 = new BinaryOperator(criterion, 1, BinaryOperatorType.Greater);
             var result = new XPCollection<Order>(uow, crit2).ToList();
-            Assert.AreEqual(3, result.Count);
+            Assert.AreEqual(2, result.Count);
         }
         [Test]
-        public void CountСollection_3() {
+        public void Task2_CountСollection_3() {
             PopulateComplexCollection();
             var uow = new UnitOfWork();
-            CriteriaOperator criterion = CriteriaOperator.FromLambda<Order>(x => x.OrderItems.Count() > 2);
+            CriteriaOperator criterion = CriteriaOperator.FromLambda<Order>(x => x.OrderItems.Count() > 1);
             var result = new XPCollection<Order>(uow, criterion).ToList();
-            Assert.AreEqual(3, result.Count);
+            Assert.AreEqual(2, result.Count);
         }
 
 
         [Test]
-        public void CountCriteria_1() {
+        public void Task3_CountCriteria_1() {
             PopulateComplexCollectionWithAvailable();
             var uow = new UnitOfWork();
             CriteriaOperator criterion = CriteriaOperator.Parse("[OrderItems][IsAvailable=true].Count()>0");
@@ -78,16 +78,16 @@ namespace dxTestSolutionXPO.Tests {
         }
 
         [Test]
-        public void CountCriteria_2() {
+        public void Task3_CountCriteria_2() {
             PopulateComplexCollectionWithAvailable();
             var uow = new UnitOfWork();
             CriteriaOperator criterion = new AggregateOperand(nameof(Order.OrderItems), Aggregate.Count, new BinaryOperator(nameof(OrderItem.IsAvailable), true));
-            var crit2 = new BinaryOperator(criterion, 0, BinaryOperatorType.Greater);
-            var result = new XPCollection<Order>(uow, crit2).ToList();
+            CriteriaOperator resultCriterion = new BinaryOperator(criterion, 0, BinaryOperatorType.Greater);
+            var result = new XPCollection<Order>(uow, resultCriterion).ToList();
             Assert.AreEqual(2, result.Count);
         }
         [Test]
-        public void CountCriteria_3() {
+        public void Task3_CountCriteria_3() {
             PopulateComplexCollectionWithAvailable();
             var uow = new UnitOfWork();
             CriteriaOperator criterion = CriteriaOperator.FromLambda<Order>(x => x.OrderItems.Count(i => i.IsAvailable == true) > 0);

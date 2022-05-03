@@ -51,21 +51,15 @@ namespace dxTestSolutionXPO.Tests {
             var c0 = ConnectionHelper.AddOrder(uow, "FirstName0");
             var t00 = ConnectionHelper.AddOrderItem(uow, c0, "Task0-0");
             var t01 = ConnectionHelper.AddOrderItem(uow, c0, "Task0-1");
-            var t02 = ConnectionHelper.AddOrderItem(uow, c0, "Task0-2");
 
             var c1 = ConnectionHelper.AddOrder(uow, "FirstName1");
             var t10 = ConnectionHelper.AddOrderItem(uow, c1, "Task1-0");
-            var t11 = ConnectionHelper.AddOrderItem(uow, c1, "Task1-1");
-            var t12 = ConnectionHelper.AddOrderItem(uow, c1, "Task1-2");
 
             var c2 = ConnectionHelper.AddOrder(uow, "FirstName2");
             var t20 = ConnectionHelper.AddOrderItem(uow, c2, "Task2-0");
             var t21 = ConnectionHelper.AddOrderItem(uow, c2, "Task2-1");
-            var t22 = ConnectionHelper.AddOrderItem(uow, c2, "Task2-2");
 
-            var c3 = ConnectionHelper.AddOrder(uow, "FirstName3");
-            var t30 = ConnectionHelper.AddOrderItem(uow, c3, "Task3-0");
-            var t31 = ConnectionHelper.AddOrderItem(uow, c3, "Task3-1");
+        
 
 
             uow.CommitChanges();
