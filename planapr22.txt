@@ -1,0 +1,83 @@
+(первые примерные действия, метрики по числу пользователей на кого повлияет).
+
+Criteria syntax
+
+- примеры кода для каждого criteria operator. 
+- остальные саджи из [Improve Data Library documentation on !XPO | Trello](https://trello.com/c/cJ5i2dzA/172-improve-data-library-documentation)
+
+Шаги:
+Прикинуть как примеры чтобы это было наглядно. Пока из идей:  таблица с данными (строк 5) -> пример кода с оператором -> таблица с результатом.
+Описать один оператор в таком форматею
+Согласовать формат.
+Написать примеры на каждый оператор. [Criteria Operators](https://docs.devexpress.com/CoreLibraries/2129/devexpress-data-library/criteria-operators)
+Придумать/найти популярные сценарии с использованием нескольких операторов. 
+Написать примеры для них.
+
+Метрики: ?
+по Ксаф количество вопросов по Built-in criteria operators уменьшилось на х?
+в других командах - узнать категоризируют ли такие тикеты и если да, посмотреть по ним тоже динамику.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=================================
+
+[Big Fishes for Docs for 22.1 on !XAF | Trello](https://trello.com/c/Lp7GxNqR/457-big-fishes-for-docs-for-221)
+
+
+
+
+Criteria Language Syntax New features [Леша] [on check]
+
+https://docs.google.com/document/d/10lJNE1guOz3hgq42CEbx9_LjmTa1yEa2TD5PSMHiEHQ/edit
+
+https://miro.com/app/board/uXjVOMUAZ3s=/
+
+<a href="https://trello.com/c/cJ5i2dzA/172-improve-data-library-documentation">Improve Data Library documentation on !XPO | Trello</a>
+
+
+
+
+
+
+AppModel
+MAU2 plugin
+
+XAFDebugConverter
+
+
+[Documentation Plan on !XAF | Trello](https://trello.com/c/g2y3vB6t/469-documentation-plan)
+
+[T1076927 - Re: WinForms - How to work with Ribbon control designers and .NET 5+ in XAF custom form templates](https://supportcenter.devexpress.com/internal/ticket/details/T1076927)
+[T1078464 - How to customize rich control articles don't use the CustomizeViewItemControl](https://supportcenter.devexpress.com/internal/ticket/details/T1078464)
+[T1075031 - Xaf ModelDetailViewLayoutNodesGenerator Add new property editor](https://supportcenter.devexpress.com/internal/ticket/details/T1075031)
+[T1078467 - Review XAF docs to find where we can use the CustomizeViewItemControl method instead of the old way ( View.FindItem())](https://supportcenter.devexpress.com/internal/ticket/details/T1078467)

@@ -1,0 +1,11 @@
+Основные ожидания:
+1. 3-5 популярных примеров кода по API Reference: https://docs.devexpress.com/CoreLibraries/2129/devexpress-data-library/criteria-operators
+2. ТОП 10+ популярных сложных примеров типа Min, Max, Single, ContainsOperator, Parent Traversal Operator, Free Joins
+3. По каждому примеру кода хочется иметь 3 диалекта: text-based, LINQ-based, strongly-typed + также описание на человеческом языке с кучей ключевых слов. См. пример ниже.
+4. Бонус по XAF: ТОП 10+ язык: фильтрация лукапов, фильтрация лукапов по Current Object Parameter, CurrentUserId, разные случаи с distrinct values. пермишны с currentuser (departments)
+5. Чтобы лучше пояснить как работает критерий, то есть идея дать 3-5 классов дата модели (Customer, Orders, Addresses, PhoneNumbers), и также показать тестовый датасет и результат после применения критериев. Договорились сделать один топик и потом решить продолжать или нет.
+6. Function operators примеры в отдельной статье + подумать над искабельностью.
+
+
+
+

@@ -13,7 +13,7 @@ namespace dxTestSolutionXPO {
     
 
         [Test]
-        public void AggregateOperandAvg_PlainCollection_1() {
+        public void Task1_PlainCollection_1() {
             PopulatePlainCollection();
             CriteriaOperator criterion = CriteriaOperator.Parse("Avg([Price])");
             var uow = new UnitOfWork();
@@ -21,7 +21,7 @@ namespace dxTestSolutionXPO {
             Assert.AreEqual(15, result);
         }
         [Test]
-        public void AggregateOperandAvg_PlainCollection_2() {
+        public void Task1_PlainCollection_2() {
             PopulatePlainCollection();
             CriteriaOperator criterion = new AggregateOperand(null, nameof(Order.Price), Aggregate.Avg);
             var uow = new UnitOfWork();
@@ -29,7 +29,7 @@ namespace dxTestSolutionXPO {
             Assert.AreEqual(15, res);
         }
         [Test]
-        public void AggregateOperandAvg_PlainCollection_3() {
+        public void Task1_PlainCollection_3() {
             PopulatePlainCollection();
             CriteriaOperator criterion = CriteriaOperator.FromLambda<Order, double>(x => FromLambdaFunctions.TopLevelAggregate<Order>().Average(c => c.Price));
             var uow = new UnitOfWork();
@@ -37,7 +37,7 @@ namespace dxTestSolutionXPO {
             Assert.AreEqual(15, res);
         }
         [Test]
-        public void AggregateOperandAvg_PlainCollection_Crit_1() {
+        public void Task2_PlainCollection_Crit_1() {
             PopulateСollectionWithActive();
             var crit = CriteriaOperator.Parse("Avg([Price])");
             var crit2 = CriteriaOperator.Parse("[IsActive]=true");
@@ -46,7 +46,7 @@ namespace dxTestSolutionXPO {
             Assert.AreEqual(40, res);
         }
         [Test]
-        public void AggregateOperandAvg_PlainCollection_Crit_2() {
+        public void Task2_PlainCollection_Crit_2() {
             PopulateСollectionWithActive();
             var crit = new AggregateOperand(null, nameof(Order.Price), Aggregate.Avg);
             var crit2 = new BinaryOperator(nameof(Order.IsActive), true);
@@ -56,7 +56,7 @@ namespace dxTestSolutionXPO {
         }
    
         [Test]
-        public void AggregateOperandAvg_PlainCollection_Crit_3() {
+        public void Task2_PlainCollection_Crit_3() {
             PopulateСollectionWithActive();
             var crit = CriteriaOperator.FromLambda<Order, double>(x => FromLambdaFunctions.TopLevelAggregate<Order>().Average(c => c.Price));
             var crit2 = CriteriaOperator.FromLambda<Order>(x => x.IsActive);
@@ -68,7 +68,7 @@ namespace dxTestSolutionXPO {
       
 
         [Test]
-        public void AggregateOperandAvg_SelectFromCollection_1() {
+        public void Task3_SelectFromCollection_1() {
             PopulateSelectFromCollection();
             var uow = new UnitOfWork();
             var crit = CriteriaOperator.Parse("[OrderItems].Avg([ItemPrice])>100");
@@ -79,7 +79,7 @@ namespace dxTestSolutionXPO {
         }
 
         [Test]
-        public void AggregateOperandAvg_SelectFromCollection_2() {
+        public void Task3_SelectFromCollection_2() {
             PopulateSelectFromCollection();
             var uow = new UnitOfWork();
             var crit = new AggregateOperand(nameof(Order.OrderItems), nameof(OrderItem.ItemPrice) , Aggregate.Avg);
@@ -91,7 +91,7 @@ namespace dxTestSolutionXPO {
         }
 
         [Test]
-        public void AggregateOperandAvg_SelectFromCollection_3() {
+        public void Task3_SelectFromCollection_3() {
             PopulateSelectFromCollection();
             var uow = new UnitOfWork();
             var crit = CriteriaOperator.FromLambda<Order>(x => x.OrderItems.Average(t => t.ItemPrice) > 100);
