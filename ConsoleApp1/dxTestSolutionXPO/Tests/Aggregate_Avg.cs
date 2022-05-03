@@ -102,4 +102,9 @@ namespace dxTestSolutionXPO {
         }
 
     }
+   /*
+   Name  | Price
+   Item1 | 10
+   Item2 | 20
+    */
 }
