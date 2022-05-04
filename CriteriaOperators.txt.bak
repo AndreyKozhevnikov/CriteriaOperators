@@ -9,3 +9,14 @@
 
 
 
+Андрей, забыл вчера скопировать API кросс-платформенные из сорсов, что у нас используются для двух сценариев продвинутых: Evaluate и Fit. Вот они в деле: https://supportcenter.devexpress.com/ticket/details/t201687/how-to-check-if-an-object-matches-a-certain-criteria-or-evaluate-the-result-of-an  - там примеры с XPO/XAF, но такой же пример можно сделать без них, создав EvaluatorContextDescriptor. Я бы еще показал это все Юре Астахову, т.к. может быть более рекомендованные средства есть сейчас.
+
+         public virtual EvaluatorContextDescriptor GetEvaluatorContextDescriptor(Type type) {            return new EvaluatorContextDescriptorDefault(type);
+        }
+        public ExpressionEvaluator GetExpressionEvaluator(Type objectType, CriteriaOperator criteria) {
+            EvaluatorContextDescriptor evaluatorContextDescriptor = GetEvaluatorContextDescriptor(objectType);
+            return GetExpressionEvaluator(evaluatorContextDescriptor, criteria);
+        }
+        public ExpressionEvaluator GetExpressionEvaluator(EvaluatorContextDescriptor evaluatorContextDescriptor, CriteriaOperator criteria) {
+            return new ExpressionEvaluator(evaluatorContextDescriptor, criteria, false, GetCustomFunctionOperators());
+        }

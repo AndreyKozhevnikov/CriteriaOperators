@@ -57,7 +57,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\Aggregate_Count.cs" />
     <Compile Include="Tests\Aggregate_Avg.cs" />
+    <Compile Include="Tests\Aggregate_Single.cs" />
     <Compile Include="Tests\BaseTest.cs" />
+    <Compile Include="Tests\Complex.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

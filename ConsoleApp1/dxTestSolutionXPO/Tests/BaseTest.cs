@@ -10,18 +10,18 @@ namespace dxTestSolutionXPO.Tests {
         public void PopulatePlainCollection() {
             ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
             var uow = new UnitOfWork();
-            ConnectionHelper.AddContact(uow, "FirstName0", 10);
-            ConnectionHelper.AddContact(uow, "FirstName1", 20);
+            ConnectionHelper.AddOrder(uow, "FirstName0", 10);
+            ConnectionHelper.AddOrder(uow, "FirstName1", 20);
             uow.CommitChanges();
         }
         public void PopulateСollectionWithActive() {
             ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
             var uow = new UnitOfWork();
-            ConnectionHelper.AddContact(uow, "FirstName0", 10, false);
-            ConnectionHelper.AddContact(uow, "FirstName0", 20, false);
-            ConnectionHelper.AddContact(uow, "FirstName0", 30, true);
-            ConnectionHelper.AddContact(uow, "FirstName0", 40, true);
-            ConnectionHelper.AddContact(uow, "FirstName0", 50, true);
+            ConnectionHelper.AddOrder(uow, "FirstName0", 10, false);
+            ConnectionHelper.AddOrder(uow, "FirstName0", 20, false);
+            ConnectionHelper.AddOrder(uow, "FirstName0", 30, true);
+            ConnectionHelper.AddOrder(uow, "FirstName0", 40, true);
+            ConnectionHelper.AddOrder(uow, "FirstName0", 50, true);
             uow.CommitChanges();
         }
 

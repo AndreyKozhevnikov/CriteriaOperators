@@ -20,3 +20,7 @@
         public ExpressionEvaluator GetExpressionEvaluator(EvaluatorContextDescriptor evaluatorContextDescriptor, CriteriaOperator criteria) {
             return new ExpressionEvaluator(evaluatorContextDescriptor, criteria, false, GetCustomFunctionOperators());
         }
+		
+
+++
+<a href="https://supportcenter.devexpress.com/internal/ticket/details/T1083873">T1083873 - InvalidPropertyPathException after upgrading from 20.2.6 to 21.2.7</a>

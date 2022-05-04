@@ -58,14 +58,14 @@ namespace dxTestSolutionXPO {
             return c;
         }
 
-        internal static Order AddContact(UnitOfWork _uow, string _firstName, int _age) {
+        internal static Order AddOrder(UnitOfWork _uow, string _firstName, int _age) {
             var c = AddOrder(_uow, _firstName);
             c.Price = _age;
             return c;
             
         }
-        public static Order AddContact(UnitOfWork _uow, string _firstName, int _age, bool _isActive) {
-            var c = AddContact(_uow, _firstName, _age);
+        public static Order AddOrder(UnitOfWork _uow, string _firstName, int _age, bool _isActive) {
+            var c = AddOrder(_uow, _firstName, _age);
             c.IsActive = _isActive;
             return c;
         }
