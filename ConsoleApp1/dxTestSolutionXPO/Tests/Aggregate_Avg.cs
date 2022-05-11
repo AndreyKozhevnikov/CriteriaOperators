@@ -32,6 +32,7 @@ namespace dxTestSolutionXPO {
         public void Task1_PlainCollection_3() {
             PopulatePlainCollection();
             CriteriaOperator criterion = CriteriaOperator.FromLambda<Order, double>(x => FromLambdaFunctions.TopLevelAggregate<Order>().Average(c => c.Price));
+            throw new Exception();
             var uow = new UnitOfWork();
             var res = uow.Evaluate<Order>(criterion, null);
             Assert.AreEqual(15, res);

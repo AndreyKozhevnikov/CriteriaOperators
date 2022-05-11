@@ -27,6 +27,44 @@ namespace dxTestSolutionXPO.Tests {
         public void Task1_0() {
             //arrange
             PopulateSelectFromCollection();
+            var uow = new UnitOfWork();
+            //act
+            CriteriaOperator criterion = CriteriaOperator.Parse("[OrderItems][ItemPrice=40].Single([OrderItemName])");
+            CriteriaOperator filterParentCollection= new BinaryOperator(nameof(Order.OrderName), "FirstName2");
+            var result3 = uow.Evaluate<Order>(criterion, filterParentCollection);
+            //assert
+            Assert.AreEqual("Task2-1", result3);
+        }
+        [Test]
+        public void Task1_1() {
+            //arrange
+            PopulateSelectFromCollection();
+            var uow = new UnitOfWork();
+            //act
+            CriteriaOperator criterion = new AggregateOperand(new OperandProperty(nameof(Order.OrderItems)), new OperandProperty(nameof(OrderItem.OrderItemName)), Aggregate.Single, new BinaryOperator(nameof(OrderItem.ItemPrice), 40));
+            CriteriaOperator filterParentCollection = new BinaryOperator(nameof(Order.OrderName), "FirstName2");
+            var result3 = uow.Evaluate<Order>(criterion, filterParentCollection);
+            //assert
+            Assert.AreEqual("Task2-1", result3);
+        }
+        [Test]
+        public void Task1_3() {
+            //arrange
+            PopulateSelectFromCollection();
+            var uow = new UnitOfWork();
+            //act
+            CriteriaOperator criterion = CriteriaOperator.FromLambda<Order, OrderItem>(customer => FromLambdaFunctions.TopLevelAggregate<Order>().Single<OrderItem>(x=>x.ItemPrice));
+            CriteriaOperator filterParentCollection = new BinaryOperator(nameof(Order.OrderName), "FirstName2");
+            var result3 = uow.Evaluate<Order>(criterion, filterParentCollection);
+            //assert
+            Assert.AreEqual("Task2-1", result3);
+        }
+
+        [Test]
+        [Ignore]
+        public void Task1_0_x() {
+            //arrange
+            PopulateSelectFromCollection();
             var uow=new UnitOfWork();
             var join = new JoinOperand("Order", null, Aggregate.Max, new OperandProperty("Price"));
             var join2 = new BinaryOperator(nameof(Order.Price), join);
@@ -48,11 +86,12 @@ namespace dxTestSolutionXPO.Tests {
             var res2 = new XPCollection<Order>(uow, crit6).ToList();
 
 
-            CriteriaOperator criterion = CriteriaOperator.Parse("[OrderItems].Single([OrderItemName])");
-            //  CriteriaOperator criterion = CriteriaOperator.Parse("Single([Price])");
+            CriteriaOperator criterion = CriteriaOperator.Parse("[OrderItems][ItemPrice=40].Single([OrderItemName])");
+            CriteriaOperator criterion2 = CriteriaOperator.Parse("Single([Price])");
             //act
             var result = uow.Evaluate<Order>(criterion,null );
             var result2 = uow.Evaluate<Order>(crit3, null);
+            var result3 = uow.Evaluate<Order>(criterion, new BinaryOperator(nameof(Order.OrderName), "FirstName2"));
             
             //assert
             Assert.AreEqual("FirstName1", result);
@@ -60,7 +99,7 @@ namespace dxTestSolutionXPO.Tests {
 
         }
         [Test]
-        public void Task1_1() {
+        public void Task2_1() {
             //arrange
             PopulatePlainCollection();
             var uow = new UnitOfWork();
@@ -69,8 +108,6 @@ namespace dxTestSolutionXPO.Tests {
             var result = new XPCollection<Order>(uow).Single(x => x.Price == 20);
             //assert
             Assert.AreEqual("FirstName1", result.OrderName);
-
-
         }
 
 

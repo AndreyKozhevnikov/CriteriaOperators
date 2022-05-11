@@ -20,3 +20,15 @@
         public ExpressionEvaluator GetExpressionEvaluator(EvaluatorContextDescriptor evaluatorContextDescriptor, CriteriaOperator criteria) {
             return new ExpressionEvaluator(evaluatorContextDescriptor, criteria, false, GetCustomFunctionOperators());
         }
+		
+
+++
+
+T1083873 - InvalidPropertyPathException after upgrading from 20.2.6 to 21.2.7
+https://supportcenter.devexpress.com/internal/ticket/details/T1083873
+Внеси себе плиз задачу на подумать - во-первых про сравнение несравнимого (типа если вы запихиваете несравнимые аргументы в BinaryOperator, он вернет false), во-вторых про принципы выполнения фильтров - какие есть особенности у клиентских и серверных фильтров и когда кто используется.
+
+
+Андрей, вот еще заметка для тебя - не описана функция Escaping для square brackets в критериях. JFYI.
+ T1086558 - XPO Criteria Language syntax - square brackets
+https://supportcenter.devexpress.com/internal/ticket/details/T1086558
