@@ -37,7 +37,7 @@ namespace dxTestSolutionXPO.Tests {
 
             var c2 = ConnectionHelper.AddOrder(uow, "FirstName2");
             var t20 = ConnectionHelper.AddOrderItem(uow, c2, "Task2-0", 30);
-            var t21 = ConnectionHelper.AddOrderItem(uow, c2, "Task2-1", 40);
+            var t21 = ConnectionHelper.AddOrderItem(uow, c2, "Task2-1", 40,55);
             var c3 = ConnectionHelper.AddOrder(uow, "FirstName3");
             var t30 = ConnectionHelper.AddOrderItem(uow, c3, "Task3-0", 300);
             var t31 = ConnectionHelper.AddOrderItem(uow, c3, "Task3-1", 400);

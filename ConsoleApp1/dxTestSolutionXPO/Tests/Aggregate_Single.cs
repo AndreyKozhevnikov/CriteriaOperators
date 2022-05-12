@@ -11,20 +11,8 @@ using System.Threading.Tasks;
 namespace dxTestSolutionXPO.Tests {
     [TestFixture]
     public class Aggregate_Single : BaseTest {
-
         [Test]
-        public void Task0() {
-            //arrange
-            PopulatePlainCollection();
-            //act
-            var uow = new UnitOfWork();
-            // var coll =
-            //assert
-            Assert.Throws<InvalidOperationException>(() => { new XPCollection<Order>(uow).Single(); });
-        }
-
-        [Test]
-        public void Task1_0() {
+        public void Task0_0() {
             //arrange
             PopulateSelectFromCollection();
             var uow = new UnitOfWork();
@@ -36,7 +24,7 @@ namespace dxTestSolutionXPO.Tests {
             Assert.AreEqual("Task2-1", result3);
         }
         [Test]
-        public void Task1_1() {
+        public void Task0_1() {
             //arrange
             PopulateSelectFromCollection();
             var uow = new UnitOfWork();
@@ -48,18 +36,85 @@ namespace dxTestSolutionXPO.Tests {
             Assert.AreEqual("Task2-1", result3);
         }
         [Test]
-        public void Task1_3() {
+        public void Task0_2() {
             //arrange
             PopulateSelectFromCollection();
             var uow = new UnitOfWork();
             //act
-            CriteriaOperator criterion = CriteriaOperator.FromLambda<Order, OrderItem>(customer => FromLambdaFunctions.TopLevelAggregate<Order>().Single<OrderItem>(x=>x.ItemPrice));
+            CriteriaOperator criterion = CriteriaOperator.FromLambda<Order, string>(o => o.OrderItems.SingleOrDefault(oi => oi.ItemPrice == 40).OrderItemName);
             CriteriaOperator filterParentCollection = new BinaryOperator(nameof(Order.OrderName), "FirstName2");
             var result3 = uow.Evaluate<Order>(criterion, filterParentCollection);
             //assert
             Assert.AreEqual("Task2-1", result3);
         }
+        [Test]
+        public void Task2_0() {
+            //arrange
+            PopulateSelectFromCollection();
+            var uow = new UnitOfWork();
+            //act
+            CriteriaOperator criterion = CriteriaOperator.Parse("[OrderItems][ItemPrice=40].Single()");
+            CriteriaOperator filterParentCollection = new BinaryOperator(nameof(Order.OrderName), "FirstName2");
+            var result3 = uow.Evaluate<Order>(criterion, filterParentCollection);
+            //assert
+            throw new Exception();
+            //TODO!!!!!!!describe between diff values on server (object) and client (id)
+            var reqId = uow.FindObject<OrderItem>(new BinaryOperator(nameof(OrderItem.OrderItemName), "Task2-1")).Oid;
+            Assert.AreEqual(reqId, result3);
+        }
+        [Test]
+        public void Task2_1() {
+            //arrange
+            PopulateSelectFromCollection();
+            var uow = new UnitOfWork();
+            //act
+            CriteriaOperator criterion = new AggregateOperand(new OperandProperty(nameof(Order.OrderItems)), new OperandProperty("This"), Aggregate.Single, new BinaryOperator(nameof(OrderItem.ItemPrice), 40));
+            CriteriaOperator filterParentCollection = new BinaryOperator(nameof(Order.OrderName), "FirstName2");
+            var result = uow.Evaluate<Order>(criterion, filterParentCollection);
+            //assert
 
+            //describe between diff values on server (object) and client (id)
+            var reqId = uow.FindObject<OrderItem>(new BinaryOperator(nameof(OrderItem.OrderItemName), "Task2-1")).Oid;
+            Assert.AreEqual(reqId, result);
+        }
+        [Test]
+        public void Task2_2() {
+            //arrange
+            PopulateSelectFromCollection();
+            var uow = new UnitOfWork();
+            //act
+            CriteriaOperator criterion = CriteriaOperator.FromLambda<Order, OrderItem>(o => o.OrderItems.SingleOrDefault(oi => oi.ItemPrice == 40));
+            CriteriaOperator filterParentCollection = new BinaryOperator(nameof(Order.OrderName), "FirstName2");
+            var result = uow.Evaluate<Order>(criterion, filterParentCollection);
+            //assert
+
+            //describe between diff values on server (object) and client (id)
+            var reqId = uow.FindObject<OrderItem>(new BinaryOperator(nameof(OrderItem.OrderItemName), "Task2-1")).Oid;
+            Assert.AreEqual(reqId, result);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        [Test]
+        public void Task0() {
+            //arrange
+            PopulatePlainCollection();
+            //act
+            var uow = new UnitOfWork();
+            // var coll =
+            //assert
+            Assert.Throws<InvalidOperationException>(() => { new XPCollection<Order>(uow).Single(); });
+        }
         [Test]
         [Ignore]
         public void Task1_0_x() {
@@ -97,17 +152,6 @@ namespace dxTestSolutionXPO.Tests {
             Assert.AreEqual("FirstName1", result);
 
 
-        }
-        [Test]
-        public void Task2_1() {
-            //arrange
-            PopulatePlainCollection();
-            var uow = new UnitOfWork();
-
-            //act
-            var result = new XPCollection<Order>(uow).Single(x => x.Price == 20);
-            //assert
-            Assert.AreEqual("FirstName1", result.OrderName);
         }
 
 

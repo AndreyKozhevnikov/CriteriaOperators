@@ -80,6 +80,12 @@ namespace dxTestSolutionXPO {
             t.ItemPrice = _price;
             return t;
         }
+        public static OrderItem AddOrderItem(UnitOfWork _uow, Order _parent, string _subject, int _price,int _id) {
+            var t = AddOrderItem(_uow, _parent, _subject);
+            t.Oid= _id; 
+            t.ItemPrice = _price;
+            return t;
+        }
         public static OrderItem AddOrderItem(UnitOfWork _uow, Order _parent, string _subject, int _price,bool _isAvailable) {
             var t = AddOrderItem(_uow,_parent,_subject,_price);
             t.IsAvailable = _isAvailable;

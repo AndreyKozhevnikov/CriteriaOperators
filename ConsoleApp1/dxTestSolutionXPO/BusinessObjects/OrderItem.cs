@@ -5,7 +5,7 @@ using DevExpress.Xpo;
 using System.Diagnostics;
 
 namespace dxTestSolutionXPO.Module.BusinessObjects {
-     [DebuggerDisplay("Subject: {Subject}")]
+     [DebuggerDisplay("Subject: {OrderItemName}")]
     public class OrderItem : XPObject { 
         public OrderItem(Session session)
             : base(session) {
