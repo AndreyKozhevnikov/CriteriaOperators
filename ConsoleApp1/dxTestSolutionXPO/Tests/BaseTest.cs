@@ -37,12 +37,32 @@ namespace dxTestSolutionXPO.Tests {
 
             var c2 = ConnectionHelper.AddOrder(uow, "FirstName2");
             var t20 = ConnectionHelper.AddOrderItem(uow, c2, "Task2-0", 30);
-            var t21 = ConnectionHelper.AddOrderItem(uow, c2, "Task2-1", 40,55);
+            var t21 = ConnectionHelper.AddOrderItem(uow, c2, "Task2-1", 40, 55);
             var c3 = ConnectionHelper.AddOrder(uow, "FirstName3");
             var t30 = ConnectionHelper.AddOrderItem(uow, c3, "Task3-0", 300);
             var t31 = ConnectionHelper.AddOrderItem(uow, c3, "Task3-1", 400);
-
-
+            uow.CommitChanges();
+        }
+        public void PopulateDiffItems() {
+            ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
+            var uow = new UnitOfWork();
+            var c0 = ConnectionHelper.AddOrder(uow, "FirstName0");
+            var t00 = ConnectionHelper.AddOrderItem(uow, c0, "Task0-0", 10);
+            var t01 = ConnectionHelper.AddOrderItem(uow, c0, "Task0-1", 20);
+            var c4 = ConnectionHelper.AddOrder(uow, "FirstName4");
+            var t40 = ConnectionHelper.AddOrderItem(uow, c4, "Task4-0", 300);
+            var t41 = ConnectionHelper.AddOrderItem(uow, c4, "Task4-1", 400);
+            var t42 = ConnectionHelper.AddOrderItem(uow, c4, "Task4-2", 456);
+            var t43 = ConnectionHelper.AddOrderItem(uow, c4, "Task4-3", 456);
+            uow.CommitChanges();
+        }
+        public void PopulateOrderItemsWithSameValues() {
+            ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
+            var uow = new UnitOfWork();
+            var c0 = ConnectionHelper.AddOrder(uow, "FirstName0");
+            var t00 = ConnectionHelper.AddOrderItem(uow, c0, "Task0-0", 10);
+            var t01 = ConnectionHelper.AddOrderItem(uow, c0, "Task0-1", 10);
+            var t02 = ConnectionHelper.AddOrderItem(uow, c0, "Task0-2", 20);
             uow.CommitChanges();
         }
         public void PopulateComplexCollection() {
@@ -59,7 +79,7 @@ namespace dxTestSolutionXPO.Tests {
             var t20 = ConnectionHelper.AddOrderItem(uow, c2, "Task2-0");
             var t21 = ConnectionHelper.AddOrderItem(uow, c2, "Task2-1");
 
-        
+
 
 
             uow.CommitChanges();
