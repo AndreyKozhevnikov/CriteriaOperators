@@ -24,5 +24,19 @@ namespace dxTestSolutionXPO.Tests {
             Assert.AreEqual(50, joinRes[0].Price);
 
         }
+
+        [Test]
+        public void Test0_2() {
+            //arrange
+            PopulateSimpleCollectionForMaxMin();
+            var uow = new UnitOfWork();
+            //act
+            CriteriaOperator criterion = CriteriaOperator.FromLambda<OrderItem>(oi => oi.ItemPrice >= 10 && oi.ItemPrice < 30);
+            var xpColl = new XPCollection<OrderItem>(uow);
+            xpColl.Filter = criterion;
+            var result3 = xpColl.Count;
+            //assert
+            Assert.AreEqual(3, result3);
+        }
     }
 }
