@@ -61,6 +61,7 @@
     <Compile Include="Tests\Aggregate_Max.cs" />
     <Compile Include="Tests\Aggregate_Min.cs" />
     <Compile Include="Tests\Aggregate_Single.cs" />
+    <Compile Include="Tests\Aggregate_Sum.cs" />
     <Compile Include="Tests\BaseTest.cs" />
     <Compile Include="Tests\Complex.cs" />
   </ItemGroup>
