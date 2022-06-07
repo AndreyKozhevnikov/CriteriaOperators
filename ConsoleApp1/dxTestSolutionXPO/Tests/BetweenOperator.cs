@@ -17,7 +17,7 @@ namespace dxTestSolutionXPO.Tests {
             PopulateSimpleCollectionForMaxMin();
             var uow = new UnitOfWork();
             //act
-            CriteriaOperator criterion = CriteriaOperator.Parse("[ItemPrice] Between (10,30)");
+            CriteriaOperator criterion = CriteriaOperator.Parse("[ItemPrice]Between(10,30)");
             var xpColl = new XPCollection<OrderItem>(uow);
             xpColl.Filter = criterion;
             var result3 = xpColl.Count;
