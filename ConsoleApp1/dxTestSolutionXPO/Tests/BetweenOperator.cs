@@ -30,13 +30,13 @@ namespace dxTestSolutionXPO.Tests {
             PopulateSimpleCollectionForMaxMin();
             var uow = new UnitOfWork();
             //act
-            CriteriaOperator criterion = new BetweenOperator(nameof(OrderItem.ItemPrice),10,30);
+            CriteriaOperator criterion = new BetweenOperator(nameof(OrderItem.ItemPrice), 10, 30);
             var xpColl = new XPCollection<OrderItem>(uow);
             xpColl.Filter = criterion;
             var result3 = xpColl.Count;
             //assert
             Assert.AreEqual(3, result3);
         }
- 
+
     }
 }
