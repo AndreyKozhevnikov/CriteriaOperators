@@ -38,5 +38,20 @@ namespace dxTestSolutionXPO.Tests {
             Assert.AreEqual(3, result3);
         }
 
+        [Test]
+        public void Test0_2() {
+            //arrange
+            PopulateSimpleCollectionForMaxMin();
+            var uow = new UnitOfWork();
+            //act
+            //Although there is no LINQ expression that generates the BetweenOperator you can solve this taks using the following expression
+            CriteriaOperator criterion = CriteriaOperator.FromLambda<OrderItem>(oi => oi.ItemPrice >= 10 && oi.ItemPrice <= 30);
+            var xpColl = new XPCollection<OrderItem>(uow);
+            xpColl.Filter = criterion;
+            var result3 = xpColl.Count;
+            //assert
+            Assert.AreEqual(3, result3);
+        }
+
     }
 }
