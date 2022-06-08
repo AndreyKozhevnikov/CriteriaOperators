@@ -64,6 +64,19 @@ namespace dxTestSolutionXPO.Tests {
             var t03 = ConnectionHelper.AddOrderItem(uow, c0, "Item0-1", 40, false);
             uow.CommitChanges();
         }
+        public void PopulateSimpleCollectionForMaxMinTest() {
+            ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
+            var uow = new UnitOfWork();
+            var c0 = ConnectionHelper.AddOrder(uow, "FirstName0", 44);
+            var t00 = ConnectionHelper.AddOrderItem(uow, c0, "Item0-1", 10, false);
+            var t01 = ConnectionHelper.AddOrderItem(uow, c0, "Item0-1", 20, true);
+            var t02 = ConnectionHelper.AddOrderItem(uow, c0, "Item0-1", 30, true);
+            var t03 = ConnectionHelper.AddOrderItem(uow, c0, "Item0-1", 40, false);
+            var c1 = ConnectionHelper.AddOrder(uow, "FirstName1", 44);
+            var t10 = ConnectionHelper.AddOrderItem(uow, c1, "Item0-1", 10, false);
+            var t11 = ConnectionHelper.AddOrderItem(uow, c1, "Item0-1", 44, true);
+            uow.CommitChanges();
+        }
         public void PopulateSimpleCollectionForBinary() {
             ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
             var uow = new UnitOfWork();

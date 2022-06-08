@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace dxTestSolutionXPO.Tests {
     [TestFixture]
-    public class Complex: BaseTest {
+    public class Complex : BaseTest {
         [Test]
         public void GetMax() {
             //arrange
@@ -28,15 +28,41 @@ namespace dxTestSolutionXPO.Tests {
         [Test]
         public void Test0_2() {
             //arrange
-            PopulateSimpleCollectionForMaxMin();
+            PopulateSimpleCollectionForMaxMinTest();
             var uow = new UnitOfWork();
             //act
             CriteriaOperator criterion = CriteriaOperator.FromLambda<OrderItem>(oi => oi.ItemPrice >= 10 && oi.ItemPrice < 30);
+
             var xpColl = new XPCollection<OrderItem>(uow);
             xpColl.Filter = criterion;
             var result3 = xpColl.Count;
             //assert
             Assert.AreEqual(3, result3);
+
+
+            CriteriaOperator criterion2 = CriteriaOperator.FromLambda<Order>(o => o.OrderItems.Any(oi => oi.ItemPrice == o.Price));
+            var xpColl2 = new XPCollection<Order>(uow);
+            xpColl2.Filter = criterion2;
+            var col = xpColl2.ToList();
+            var result4 = xpColl.Count;
+
+        }
+        [Test]
+        public void Test0_3() {
+            //arrange
+            PopulateSimpleCollectionForMaxMinTest();
+            var uow = new UnitOfWork();
+            //act
+    
+
+
+            CriteriaOperator criterion2 = CriteriaOperator.FromLambda<Order>(o => o.OrderItems.Any(oi => oi.ItemPrice == o.Price));
+            var xpColl2 = new XPCollection<Order>(uow);
+            xpColl2.Filter = criterion2;
+            var col = xpColl2.ToList();
+            var result4 = xpColl2.Count;
+            Assert.AreEqual(1, result4);
+
         }
     }
 }
