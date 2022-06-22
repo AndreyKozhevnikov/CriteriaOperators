@@ -14,7 +14,7 @@ namespace dxTestSolutionXPO.Tests {
         [Test]
         public void Test0_0() {
             //arrange
-            PopulateSimpleCollectionForForGroupOperator();
+            PopulateSimpleCollectionForGroupOperator();
             var uow = new UnitOfWork();
             //act
             CriteriaOperator criterion = CriteriaOperator.Parse("[OrderName] In ('Order2', 'Order3','Description5')");
@@ -30,7 +30,7 @@ namespace dxTestSolutionXPO.Tests {
         [Test]
         public void Test0_1() {
             //arrange
-            PopulateSimpleCollectionForForGroupOperator();
+            PopulateSimpleCollectionForGroupOperator();
             var uow = new UnitOfWork();
             //act
 
@@ -47,7 +47,7 @@ namespace dxTestSolutionXPO.Tests {
         [Test]
         public void Test0_2() {
             //arrange
-            PopulateSimpleCollectionForForGroupOperator();
+            PopulateSimpleCollectionForGroupOperator();
             var uow = new UnitOfWork();
             //act
             CriteriaOperator criterion = CriteriaOperator.FromLambda<Order, bool>(o => new string[] { "Order2", "Order3", "Description5" }.Contains(o.OrderName));

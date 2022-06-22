@@ -14,7 +14,7 @@ namespace dxTestSolutionXPO.Tests {
         [Test]
         public void Test0_0() {
             //arrange
-            PopulateSimpleCollectionForForIsNullOrEmpty();
+            PopulateSimpleCollectionForIsNullOrEmpty();
             var uow = new UnitOfWork();
             //act
             CriteriaOperator criterion = CriteriaOperator.Parse("IsNullOrEmpty(Description)");
@@ -28,7 +28,7 @@ namespace dxTestSolutionXPO.Tests {
         [Test]
         public void Test0_1() {
             //arrange
-            PopulateSimpleCollectionForForIsNullOrEmpty();
+            PopulateSimpleCollectionForIsNullOrEmpty();
             var uow = new UnitOfWork();
             //act
             CriteriaOperator criterion = new FunctionOperator(FunctionOperatorType.IsNullOrEmpty, new CriteriaOperator[] { new OperandProperty(nameof(Order.Description)) });
@@ -42,7 +42,7 @@ namespace dxTestSolutionXPO.Tests {
         [Test]
         public void Test0_2() {
             //arrange
-            PopulateSimpleCollectionForForIsNullOrEmpty();
+            PopulateSimpleCollectionForIsNullOrEmpty();
             var uow = new UnitOfWork();
             //act
             CriteriaOperator criterion = CriteriaOperator.FromLambda<Order>(o => string.IsNullOrEmpty(o.Description));

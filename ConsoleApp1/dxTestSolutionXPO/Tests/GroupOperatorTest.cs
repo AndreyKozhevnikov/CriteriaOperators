@@ -14,7 +14,7 @@ namespace dxTestSolutionXPO.Tests {
         [Test]
         public void Test0_0() {
             //arrange
-            PopulateSimpleCollectionForForGroupOperator();
+            PopulateSimpleCollectionForGroupOperator();
             var uow = new UnitOfWork();
             //act
             CriteriaOperator criterion = CriteriaOperator.Parse("Price=20 or OrderName='Order3'");
@@ -30,7 +30,7 @@ namespace dxTestSolutionXPO.Tests {
         [Test]
         public void Test0_1() {
             //arrange
-            PopulateSimpleCollectionForForGroupOperator();
+            PopulateSimpleCollectionForGroupOperator();
             var uow = new UnitOfWork();
             //act
             BinaryOperator operator1 = new BinaryOperator(nameof(Order.Price), 20);
@@ -48,7 +48,7 @@ namespace dxTestSolutionXPO.Tests {
         [Test]
         public void Test0_2() {
             //arrange
-            PopulateSimpleCollectionForForGroupOperator();
+            PopulateSimpleCollectionForGroupOperator();
             var uow = new UnitOfWork();
             //act
             CriteriaOperator criterion = CriteriaOperator.FromLambda<Order>(o => o.Price==20 || o.OrderName == "Order3");

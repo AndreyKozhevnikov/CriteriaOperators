@@ -77,7 +77,7 @@ namespace dxTestSolutionXPO.Tests {
             var t11 = ConnectionHelper.AddOrderItem(uow, c1, "Item0-1", 44, true);
             uow.CommitChanges();
         }
-        public void PopulateSimpleCollectionForForGroupOperator() {
+        public void PopulateSimpleCollectionForGroupOperator() {
             ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
             var uow = new UnitOfWork();
             var c0 = ConnectionHelper.AddOrder(uow, "Order0", 10);
@@ -87,8 +87,7 @@ namespace dxTestSolutionXPO.Tests {
           
             uow.CommitChanges();
         }
-
-        public void PopulateSimpleCollectionForForIsNullOrEmpty() {
+        public void PopulateSimpleCollectionForIsNullOrEmpty() {
             ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
             var uow = new UnitOfWork();
             var c0 = ConnectionHelper.AddOrder(uow, "FirstName0", "TestDescription");
