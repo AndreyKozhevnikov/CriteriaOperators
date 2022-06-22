@@ -17,15 +17,15 @@ namespace dxTestSolutionXPO.Tests {
             PopulateSimpleCollectionForForGroupOperator();
             var uow = new UnitOfWork();
             //act
-            CriteriaOperator criterion = CriteriaOperator.Parse("Price=20 or Description='Description3'");
+            CriteriaOperator criterion = CriteriaOperator.Parse("Price=20 or OrderName='Order3'");
             var xpColl = new XPCollection<Order>(uow);
             xpColl.Filter = criterion;
             var resColl = xpColl.OrderBy(x => x.OrderName).ToList();
             var result3 = resColl.Count;
             //assert
             Assert.AreEqual(2, result3);
-            Assert.AreEqual("FirstName1", resColl[0].OrderName);
-            Assert.AreEqual("FirstName3", resColl[1].OrderName);
+            Assert.AreEqual("Order1", resColl[0].OrderName);
+            Assert.AreEqual("Order3", resColl[1].OrderName);
         }
         [Test]
         public void Test0_1() {
@@ -34,7 +34,7 @@ namespace dxTestSolutionXPO.Tests {
             var uow = new UnitOfWork();
             //act
             BinaryOperator operator1 = new BinaryOperator(nameof(Order.Price), 20);
-            BinaryOperator operator2 = new BinaryOperator(nameof(Order.Description), "Description3");
+            BinaryOperator operator2 = new BinaryOperator(nameof(Order.OrderName), "Order3");
             CriteriaOperator criterion = GroupOperator.Or(operator1, operator2);
             var xpColl = new XPCollection<Order>(uow);
             xpColl.Filter = criterion;
@@ -42,8 +42,8 @@ namespace dxTestSolutionXPO.Tests {
             var result3 = resColl.Count;
             //assert
             Assert.AreEqual(2, result3);
-            Assert.AreEqual("FirstName1", resColl[0].OrderName);
-            Assert.AreEqual("FirstName3", resColl[1].OrderName);
+            Assert.AreEqual("Order1", resColl[0].OrderName);
+            Assert.AreEqual("Order3", resColl[1].OrderName);
         }
         [Test]
         public void Test0_2() {
@@ -51,15 +51,15 @@ namespace dxTestSolutionXPO.Tests {
             PopulateSimpleCollectionForForGroupOperator();
             var uow = new UnitOfWork();
             //act
-            CriteriaOperator criterion = CriteriaOperator.FromLambda<Order>(o => o.Price==20 || o.Description== "Description3");
+            CriteriaOperator criterion = CriteriaOperator.FromLambda<Order>(o => o.Price==20 || o.OrderName == "Order3");
             var xpColl = new XPCollection<Order>(uow);
             xpColl.Filter = criterion;
             var resColl = xpColl.OrderBy(x => x.OrderName).ToList();
             var result3 = resColl.Count;
             //assert
             Assert.AreEqual(2, result3);
-            Assert.AreEqual("FirstName1", resColl[0].OrderName);
-            Assert.AreEqual("FirstName3", resColl[1].OrderName);
+            Assert.AreEqual("Order1", resColl[0].OrderName);
+            Assert.AreEqual("Order3", resColl[1].OrderName);
         }
     }
 }

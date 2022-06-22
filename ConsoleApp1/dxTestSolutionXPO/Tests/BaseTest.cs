@@ -80,10 +80,10 @@ namespace dxTestSolutionXPO.Tests {
         public void PopulateSimpleCollectionForForGroupOperator() {
             ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
             var uow = new UnitOfWork();
-            var c0 = ConnectionHelper.AddOrder(uow, "FirstName0", "Description0",10);
-            var c1 = ConnectionHelper.AddOrder(uow, "FirstName1", "Description1",20);
-            var c2 = ConnectionHelper.AddOrder(uow, "FirstName2", "Description2",30);
-            var c3 = ConnectionHelper.AddOrder(uow, "FirstName3", "Description3",40);
+            var c0 = ConnectionHelper.AddOrder(uow, "Order0", 10);
+            var c1 = ConnectionHelper.AddOrder(uow, "Order1", 20);
+            var c2 = ConnectionHelper.AddOrder(uow, "Order2", 30);
+            var c3 = ConnectionHelper.AddOrder(uow, "Order3", 40);
           
             uow.CommitChanges();
         }
