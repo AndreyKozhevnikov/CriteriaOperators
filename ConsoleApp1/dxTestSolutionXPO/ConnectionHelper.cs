@@ -57,20 +57,26 @@ namespace dxTestSolutionXPO {
             c.OrderName = _firstName;
             return c;
         }
+        public static Order AddOrder(UnitOfWork _uow, string _firstName, string _description, int _price) {
+            var c = AddOrder(_uow, _firstName,_description);
+            c.Price = _price;
+            return c;
+        }
+
         public static Order AddOrder(UnitOfWork _uow, string _firstName, string _description) {
             var c = AddOrder(_uow, _firstName);
             c.Description = _description;
             return c;
         }
 
-        internal static Order AddOrder(UnitOfWork _uow, string _firstName, int _age) {
+        internal static Order AddOrder(UnitOfWork _uow, string _firstName, int _price) {
             var c = AddOrder(_uow, _firstName);
-            c.Price = _age;
+            c.Price = _price;
             return c;
 
         }
-        public static Order AddOrder(UnitOfWork _uow, string _firstName, int _age, bool _isActive) {
-            var c = AddOrder(_uow, _firstName, _age);
+        public static Order AddOrder(UnitOfWork _uow, string _firstName, int _price, bool _isActive) {
+            var c = AddOrder(_uow, _firstName, _price);
             c.IsActive = _isActive;
             return c;
         }
