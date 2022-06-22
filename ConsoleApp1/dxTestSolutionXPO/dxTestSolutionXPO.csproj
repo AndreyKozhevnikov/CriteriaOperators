@@ -70,6 +70,7 @@
     <Compile Include="Tests\FunctionOperator_IsNullOrEmpty.cs" />
     <Compile Include="Tests\GroupOperatorTest.cs" />
     <Compile Include="Tests\InOperatorTest.cs" />
+    <Compile Include="Tests\UnaryOperatorTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
