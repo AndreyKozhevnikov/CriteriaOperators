@@ -66,6 +66,7 @@
     <Compile Include="Tests\BetweenOperator.cs" />
     <Compile Include="Tests\BinaryOperator.cs" />
     <Compile Include="Tests\Complex.cs" />
+    <Compile Include="Tests\ContainsOperator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
