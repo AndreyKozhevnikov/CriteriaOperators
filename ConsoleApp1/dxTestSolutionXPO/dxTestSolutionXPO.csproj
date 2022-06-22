@@ -63,12 +63,13 @@
     <Compile Include="Tests\Aggregate_Single.cs" />
     <Compile Include="Tests\Aggregate_Sum.cs" />
     <Compile Include="Tests\BaseTest.cs" />
-    <Compile Include="Tests\BetweenOperator.cs" />
-    <Compile Include="Tests\BinaryOperator.cs" />
+    <Compile Include="Tests\BetweenOperatorTest.cs" />
+    <Compile Include="Tests\BinaryOperatorTest.cs" />
     <Compile Include="Tests\Complex.cs" />
-    <Compile Include="Tests\ContainsOperator.cs" />
+    <Compile Include="Tests\ContainsOperatorTests.cs" />
     <Compile Include="Tests\FunctionOperator_IsNullOrEmpty.cs" />
-    <Compile Include="Tests\GroupOperator.cs" />
+    <Compile Include="Tests\GroupOperatorTest.cs" />
+    <Compile Include="Tests\InOperatorTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
