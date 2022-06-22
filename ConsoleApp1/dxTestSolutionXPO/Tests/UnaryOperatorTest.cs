@@ -60,5 +60,53 @@ namespace dxTestSolutionXPO.Tests {
             Assert.AreEqual("Order0", resColl[0].OrderName);
             Assert.AreEqual("Order3", resColl[1].OrderName);
         }
+
+        [Test]
+        public void Test1_0() {
+            //arrange
+            ForUnary();
+            var uow = new UnitOfWork();
+            //act
+            CriteriaOperator criterion = CriteriaOperator.Parse("Order is null");
+            var xpColl = new XPCollection<OrderItem>(uow);
+            xpColl.Filter = criterion;
+            var resColl = xpColl.ToList();
+            var result3 = resColl.Count;
+            //assert
+            Assert.AreEqual(1, result3);
+            Assert.AreEqual("OrderItem1", resColl[0].OrderItemName);
+        }
+        [Test]
+        public void Test2_1() {
+            //arrange
+            ForUnary();
+            var uow = new UnitOfWork();
+            //act
+
+            CriteriaOperator criterion = new UnaryOperator(UnaryOperatorType.IsNull,new OperandProperty(nameof(OrderItem.Order)));
+            var xpColl = new XPCollection<OrderItem>(uow);
+            xpColl.Filter = criterion;
+            var resColl = xpColl.ToList();
+            var result3 = resColl.Count;
+            //assert
+            Assert.AreEqual(1, result3);
+            Assert.AreEqual("OrderItem1", resColl[0].OrderItemName);
+        }
+
+        [Test]
+        public void Test1_2() {
+            //arrange
+            ForUnary();
+            var uow = new UnitOfWork();
+            //act
+            CriteriaOperator criterion = CriteriaOperator.FromLambda<OrderItem>(oi => oi.Order == null);
+            var xpColl = new XPCollection<OrderItem>(uow);
+            xpColl.Filter = criterion;
+            var resColl = xpColl.ToList();
+            var result3 = resColl.Count;
+            //assert
+            Assert.AreEqual(1, result3);
+            Assert.AreEqual("OrderItem1", resColl[0].OrderItemName);
+        }
     }
 }
