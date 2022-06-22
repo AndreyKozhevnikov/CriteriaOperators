@@ -57,12 +57,17 @@ namespace dxTestSolutionXPO {
             c.OrderName = _firstName;
             return c;
         }
+        public static Order AddOrder(UnitOfWork _uow, string _firstName, string _description) {
+            var c = AddOrder(_uow, _firstName);
+            c.Description = _description;
+            return c;
+        }
 
         internal static Order AddOrder(UnitOfWork _uow, string _firstName, int _age) {
             var c = AddOrder(_uow, _firstName);
             c.Price = _age;
             return c;
-            
+
         }
         public static Order AddOrder(UnitOfWork _uow, string _firstName, int _age, bool _isActive) {
             var c = AddOrder(_uow, _firstName, _age);
@@ -76,18 +81,18 @@ namespace dxTestSolutionXPO {
             return t;
         }
         public static OrderItem AddOrderItem(UnitOfWork _uow, Order _parent, string _subject, int _price) {
-            var t = AddOrderItem(_uow,_parent,_subject);
-            t.ItemPrice = _price;
-            return t;
-        }
-        public static OrderItem AddOrderItem(UnitOfWork _uow, Order _parent, string _subject, int _price,int _id) {
             var t = AddOrderItem(_uow, _parent, _subject);
-            t.Oid= _id; 
             t.ItemPrice = _price;
             return t;
         }
-        public static OrderItem AddOrderItem(UnitOfWork _uow, Order _parent, string _subject, int _price,bool _isAvailable) {
-            var t = AddOrderItem(_uow,_parent,_subject,_price);
+        public static OrderItem AddOrderItem(UnitOfWork _uow, Order _parent, string _subject, int _price, int _id) {
+            var t = AddOrderItem(_uow, _parent, _subject);
+            t.Oid = _id;
+            t.ItemPrice = _price;
+            return t;
+        }
+        public static OrderItem AddOrderItem(UnitOfWork _uow, Order _parent, string _subject, int _price, bool _isAvailable) {
+            var t = AddOrderItem(_uow, _parent, _subject, _price);
             t.IsAvailable = _isAvailable;
             return t;
         }

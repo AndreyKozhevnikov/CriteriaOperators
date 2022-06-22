@@ -13,7 +13,8 @@ namespace dxTestSolutionXPO.Module.BusinessObjects {
         public override void AfterConstruction() {
             base.AfterConstruction();
         }
-       string _orderName;
+        string description;
+        string _orderName;
         public string OrderName {
             get {
                 return _orderName;
@@ -31,7 +32,7 @@ namespace dxTestSolutionXPO.Module.BusinessObjects {
                 SetPropertyValue(nameof(LastName), ref lastName, value);
             }
         }
-		int _price;
+        int _price;
         public int Price {
             get {
                 return _price;
@@ -50,6 +51,14 @@ namespace dxTestSolutionXPO.Module.BusinessObjects {
                 SetPropertyValue("IsActive", ref isActive, value);
             }
         }
+
+        
+        [Size(SizeAttribute.DefaultStringMappingFieldSize)]
+        public string Description {
+            get => description;
+            set => SetPropertyValue(nameof(Description), ref description, value);
+        }
+
         // DateTime _birthDate;
         // public DateTime BirthDate {
         // get {

@@ -67,6 +67,7 @@
     <Compile Include="Tests\BinaryOperator.cs" />
     <Compile Include="Tests\Complex.cs" />
     <Compile Include="Tests\ContainsOperator.cs" />
+    <Compile Include="Tests\FunctionOperator_IsNullOrEmpty.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
