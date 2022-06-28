@@ -31,7 +31,7 @@ namespace dxTestSolutionXPO.Tests {
             ForUnary();
             var uow = new UnitOfWork();
             //act
-            CriteriaOperator criterion = new FunctionOperator(FunctionOperatorType.IsNull,  new OperandProperty(nameof(OrderItem.Order)));
+            CriteriaOperator criterion = new FunctionOperator(FunctionOperatorType.IsNull, new OperandProperty(nameof(OrderItem.Order)));
             var xpColl = new XPCollection<OrderItem>(uow);
             xpColl.Filter = criterion;
             var result3 = xpColl.Count;
@@ -52,6 +52,57 @@ namespace dxTestSolutionXPO.Tests {
             //assert
             Assert.AreEqual(1, result3);
             Assert.AreEqual("OrderItem1", xpColl[0].OrderItemName);
+        }
+
+
+        [Test] 
+        public void Test1_0() {
+            //arrange
+            PopulateSimpleCollectionForIsNull();
+            var uow = new UnitOfWork();
+            //act
+            CriteriaOperator criterion = CriteriaOperator.Parse("'WrongValue'=IsNull(Description,'WrongValue')");
+            var xpColl = new XPCollection<Order>(uow);
+            xpColl.Filter = criterion;
+            var resultColl=xpColl.OrderBy(x=>x.OrderName).ToList();
+            var result3 = resultColl.Count;
+            //assert
+            Assert.AreEqual(2, result3);
+            Assert.AreEqual("FirstName3", resultColl[0].OrderName);
+            Assert.AreEqual("FirstName5", resultColl[1].OrderName);
+        }
+        [Test]
+        public void Test1_1() {
+            //arrange
+            PopulateSimpleCollectionForIsNull();
+            var uow = new UnitOfWork();
+            //act
+            CriteriaOperator isNullcriterion = new FunctionOperator(FunctionOperatorType.IsNull, new OperandProperty(nameof(Order.Description)), new ConstantValue("WrongValue"));
+            CriteriaOperator criterion = new BinaryOperator(isNullcriterion, "WrongValue", BinaryOperatorType.Equal);
+            var xpColl = new XPCollection<Order>(uow);
+            xpColl.Filter = criterion;
+            var resultColl = xpColl.OrderBy(x => x.OrderName).ToList();
+            var result3 = resultColl.Count;
+            //assert
+            Assert.AreEqual(2, result3);
+            Assert.AreEqual("FirstName3", resultColl[0].OrderName);
+            Assert.AreEqual("FirstName5", resultColl[1].OrderName);
+        }
+        [Test]
+        public void Test1_2() {
+            //arrange
+            PopulateSimpleCollectionForIsNull();
+            var uow = new UnitOfWork();
+            //act
+            CriteriaOperator criterion = CriteriaOperator.FromLambda<Order>(oi => "WrongValue" == (oi.Description ?? "WrongValue"));
+            var xpColl = new XPCollection<Order>(uow);
+            xpColl.Filter = criterion;
+            var resultColl = xpColl.OrderBy(x => x.OrderName).ToList();
+            var result3 = resultColl.Count;
+            //assert
+            Assert.AreEqual(2, result3);
+            Assert.AreEqual("FirstName3", resultColl[0].OrderName);
+            Assert.AreEqual("FirstName5", resultColl[1].OrderName);
         }
     }
 }

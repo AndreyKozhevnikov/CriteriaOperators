@@ -109,6 +109,7 @@ namespace dxTestSolutionXPO.Tests {
             var uow = new UnitOfWork();
             var c0 = ConnectionHelper.AddOrder(uow, "FirstName0", "TestDescription");
             var c1 = ConnectionHelper.AddOrder(uow, "FirstName3");
+            var c2 = ConnectionHelper.AddOrder(uow, "FirstName5", "WrongValue");
             uow.CommitChanges();
         }
         public void PopulateForIif() {
@@ -120,6 +121,7 @@ namespace dxTestSolutionXPO.Tests {
             var c3 = ConnectionHelper.AddOrder(uow, "Order4", "Type2", "Orange");
             uow.CommitChanges();
         }
+
         public void PopulateSimpleCollectionForBinary() {
             ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
             var uow = new UnitOfWork();
