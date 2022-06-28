@@ -31,7 +31,7 @@ namespace dxTestSolutionXPO.Tests {
             ForUnary();
             var uow = new UnitOfWork();
             //act
-            CriteriaOperator criterion = new FunctionOperator(FunctionOperatorType.IsNull, new CriteriaOperator[] { new OperandProperty(nameof(OrderItem.Order)) });
+            CriteriaOperator criterion = new FunctionOperator(FunctionOperatorType.IsNull,  new OperandProperty(nameof(OrderItem.Order)));
             var xpColl = new XPCollection<OrderItem>(uow);
             xpColl.Filter = criterion;
             var result3 = xpColl.Count;
