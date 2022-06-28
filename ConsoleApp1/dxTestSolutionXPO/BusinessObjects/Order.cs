@@ -13,6 +13,7 @@ namespace dxTestSolutionXPO.Module.BusinessObjects {
         public override void AfterConstruction() {
             base.AfterConstruction();
         }
+        DateTime orderDate;
         string orderColor;
         string orderType;
         string description;
@@ -54,6 +55,11 @@ namespace dxTestSolutionXPO.Module.BusinessObjects {
             }
         }
 
+        
+        public DateTime OrderDate {
+            get => orderDate;
+            set => SetPropertyValue(nameof(OrderDate), ref orderDate, value);
+        }
 
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
         public string Description {

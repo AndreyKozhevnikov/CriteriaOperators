@@ -14,6 +14,25 @@ namespace dxTestSolutionXPO.Tests {
             ConnectionHelper.AddOrder(uow, "FirstName1", 20);
             uow.CommitChanges();
         }
+
+        public void PopulateForNumeric() {
+            ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
+            var uow = new UnitOfWork();
+            ConnectionHelper.AddOrder(uow, "Order1", 3);
+            ConnectionHelper.AddOrder(uow, "Order2", 11);
+            ConnectionHelper.AddOrder(uow, "Order3", -15);
+
+            uow.CommitChanges();
+        }
+        public void PopulateForDates() {
+            ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
+            var uow = new UnitOfWork();
+            ConnectionHelper.AddOrder(uow, "Order11", new DateTime(2022, 2, 10));
+            ConnectionHelper.AddOrder(uow, "Order22", new DateTime(2022, 3, 10));
+            ConnectionHelper.AddOrder(uow, "Order33", new DateTime(2022, 4, 10));
+
+            uow.CommitChanges();
+        }
         public void PopulateСollectionWithActive() {
             ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
             var uow = new UnitOfWork();
