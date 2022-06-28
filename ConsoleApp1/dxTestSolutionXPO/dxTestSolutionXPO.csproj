@@ -70,7 +70,8 @@
     <Compile Include="Tests\FunctionOperators\IIfOperator.cs" />
     <Compile Include="Tests\FunctionOperators\IsNull.cs" />
     <Compile Include="Tests\FunctionOperators\IsNullOrEmpty.cs" />
-    <Compile Include="Tests\FunctionOperators\stringOperators.cs" />
+    <Compile Include="Tests\FunctionOperators\NumericOperators.cs" />
+    <Compile Include="Tests\FunctionOperators\StringOperators.cs" />
     <Compile Include="Tests\GroupOperatorTest.cs" />
     <Compile Include="Tests\InOperatorTest.cs" />
     <Compile Include="Tests\UnaryOperatorTest.cs" />
