@@ -104,6 +104,15 @@ namespace dxTestSolutionXPO.Tests {
             var c1 = ConnectionHelper.AddOrder(uow, "FirstName3");
             uow.CommitChanges();
         }
+        public void PopulateForIif() {
+            ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
+            var uow = new UnitOfWork();
+            var c0 = ConnectionHelper.AddOrder(uow, "Order1", "Type1", "Red");
+            var c1 = ConnectionHelper.AddOrder(uow, "Order2", "Type1", "Blue");
+            var c2 = ConnectionHelper.AddOrder(uow, "Order3", "Type2", "Green");
+            var c3 = ConnectionHelper.AddOrder(uow, "Order4", "Type2", "Orange");
+            uow.CommitChanges();
+        }
         public void PopulateSimpleCollectionForBinary() {
             ConnectionHelper.Connect(DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
             var uow = new UnitOfWork();

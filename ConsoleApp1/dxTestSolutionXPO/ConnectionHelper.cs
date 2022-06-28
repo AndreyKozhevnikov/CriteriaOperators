@@ -52,9 +52,15 @@ namespace dxTestSolutionXPO {
         public static IDataLayer GetDataLayer(DevExpress.Xpo.DB.AutoCreateOption autoCreateOption) {
             return XpoDefault.GetDataLayer(ConnectionString, autoCreateOption);
         }
-        public static Order AddOrder(UnitOfWork _uow, string _firstName) {
+        public static Order AddOrder(UnitOfWork _uow, string _orderName) {
             var c = new Order(_uow);
-            c.OrderName = _firstName;
+            c.OrderName = _orderName;
+            return c;
+        }
+        public static Order AddOrder(UnitOfWork _uow, string _orderName,string _type, string _color) {
+            var c = AddOrder(_uow, _orderName);
+            c.OrderType = _type;
+            c.OrderColor = _color;
             return c;
         }
         public static Order AddOrder(UnitOfWork _uow, string _firstName, string _description, int _price) {

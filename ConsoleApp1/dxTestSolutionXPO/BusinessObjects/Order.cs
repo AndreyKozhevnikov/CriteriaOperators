@@ -13,6 +13,8 @@ namespace dxTestSolutionXPO.Module.BusinessObjects {
         public override void AfterConstruction() {
             base.AfterConstruction();
         }
+        string orderColor;
+        string orderType;
         string description;
         string _orderName;
         public string OrderName {
@@ -52,7 +54,7 @@ namespace dxTestSolutionXPO.Module.BusinessObjects {
             }
         }
 
-        
+
         [Size(SizeAttribute.DefaultStringMappingFieldSize)]
         public string Description {
             get => description;
@@ -75,6 +77,20 @@ namespace dxTestSolutionXPO.Module.BusinessObjects {
             get {
                 return GetCollection<OrderItem>(nameof(OrderItems));
             }
+        }
+
+
+        [Size(SizeAttribute.DefaultStringMappingFieldSize)]
+        public string OrderType {
+            get => orderType;
+            set => SetPropertyValue(nameof(OrderType), ref orderType, value);
+        }
+
+        
+        [Size(SizeAttribute.DefaultStringMappingFieldSize)]
+        public string OrderColor {
+            get => orderColor;
+            set => SetPropertyValue(nameof(OrderColor), ref orderColor, value);
         }
 
 
