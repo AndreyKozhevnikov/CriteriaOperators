@@ -68,6 +68,7 @@
     <Compile Include="Tests\Complex.cs" />
     <Compile Include="Tests\ContainsOperatorTests.cs" />
     <Compile Include="Tests\FunctionOperators\IIfOperator.cs" />
+    <Compile Include="Tests\FunctionOperators\IsNull.cs" />
     <Compile Include="Tests\FunctionOperators\IsNullOrEmpty.cs" />
     <Compile Include="Tests\GroupOperatorTest.cs" />
     <Compile Include="Tests\InOperatorTest.cs" />
