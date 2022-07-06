@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace dxTestSolutionXPO.Tests.FunctionOperators {
-    public class StringOperators :BaseTest{
+    public class StringOperators : BaseTest {
         [Test]
         public void Test0_0() {
             //arrange
@@ -30,7 +30,7 @@ namespace dxTestSolutionXPO.Tests.FunctionOperators {
             PopulatePlainCollection();
             var uow = new UnitOfWork();
             //act
-            CriteriaOperator criterion = new FunctionOperator(FunctionOperatorType.EndsWith, new OperandProperty(nameof(Order.OrderName)),new ConstantValue("1"));
+            CriteriaOperator criterion = new FunctionOperator(FunctionOperatorType.EndsWith, new OperandProperty(nameof(Order.OrderName)), new ConstantValue("1"));
             var xpColl = new XPCollection<Order>(uow);
             xpColl.Filter = criterion;
             var result3 = xpColl.Count;
@@ -45,6 +45,51 @@ namespace dxTestSolutionXPO.Tests.FunctionOperators {
             var uow = new UnitOfWork();
             //act
             CriteriaOperator criterion = CriteriaOperator.FromLambda<Order>(oi => oi.OrderName.EndsWith("1"));
+            var xpColl = new XPCollection<Order>(uow);
+            xpColl.Filter = criterion;
+            var result3 = xpColl.Count;
+            //assert
+            Assert.AreEqual(1, result3);
+            Assert.AreEqual("FirstName1", xpColl[0].OrderName);
+        }
+
+
+        [Test]
+        public void Test1_0() {
+            //arrange
+            PopulatePlainCollection();
+            var uow = new UnitOfWork();
+            //act
+            CriteriaOperator criterion = CriteriaOperator.Parse("ToStr([Price])='20'");
+            var xpColl = new XPCollection<Order>(uow);
+            xpColl.Filter = criterion;
+            var result3 = xpColl.Count;
+            //assert
+            Assert.AreEqual(1, result3);
+            Assert.AreEqual("FirstName1", xpColl[0].OrderName);
+        }
+        [Test]
+        public void Test1_1() {
+            //arrange
+            PopulatePlainCollection();
+            var uow = new UnitOfWork();
+            //act
+            CriteriaOperator strCriterion = new FunctionOperator(FunctionOperatorType.ToStr, new OperandProperty(nameof(Order.Price)));
+            CriteriaOperator criterion = new BinaryOperator(strCriterion, new ConstantValue("20"), BinaryOperatorType.Equal);
+            var xpColl = new XPCollection<Order>(uow);
+            xpColl.Filter = criterion;
+            var result3 = xpColl.Count;
+            //assert
+            Assert.AreEqual(1, result3);
+            Assert.AreEqual("FirstName1", xpColl[0].OrderName);
+        }
+        [Test]
+        public void Test1_2() {
+            //arrange
+            PopulatePlainCollection();
+            var uow = new UnitOfWork();
+            //act
+            CriteriaOperator criterion = CriteriaOperator.FromLambda<Order>(oi => oi.Price.ToString()=="20");
             var xpColl = new XPCollection<Order>(uow);
             xpColl.Filter = criterion;
             var result3 = xpColl.Count;
